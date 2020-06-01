@@ -26,6 +26,7 @@ class MainSwipeView: UIView {
         cardView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(cardView)
         
+        
         setupConstraints()
     }
     
@@ -34,6 +35,7 @@ class MainSwipeView: UIView {
     }
     
     func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             cardView.centerXAnchor.constraint(equalTo: centerXAnchor),
             cardView.centerYAnchor.constraint(equalTo: centerYAnchor),

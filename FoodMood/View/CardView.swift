@@ -23,7 +23,7 @@ class CardView: UIView {
         super.init(frame: frame)
         backgroundColor = .red
         foodCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        foodCategoryLabel.text = "Testing Text"
+        foodCategoryLabel.textAlignment = .center
         addSubview(foodCategoryLabel)
         
         setupConstraints()
@@ -39,8 +39,8 @@ class CardView: UIView {
         NSLayoutConstraint.activate([
             foodCategoryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             foodCategoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            foodCategoryLabel.widthAnchor.constraint(equalToConstant: 50),
-            foodCategoryLabel.heightAnchor.constraint(equalToConstant: 50)
+            foodCategoryLabel.widthAnchor.constraint(equalToConstant: 100),
+            foodCategoryLabel.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
 }

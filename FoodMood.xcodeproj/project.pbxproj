@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2F85692484F4DB000EB40A /* YelpProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F85682484F4DB000EB40A /* YelpProperties.swift */; };
+		0D2F856B2484F794000EB40A /* YelpPropertiesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2F856A2484F794000EB40A /* YelpPropertiesFactory.swift */; };
 		0DAEF73B247D1C2C00DD6380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */; };
 		0DAEF73D247D1C2C00DD6380 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */; };
 		0DAEF744247D1C3100DD6380 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAEF743247D1C3100DD6380 /* Assets.xcassets */; };
@@ -19,12 +21,15 @@
 		0DAEF75E247D1DC900DD6380 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF75D247D1DC900DD6380 /* RestaurantViewController.swift */; };
 		0DC590572480B629007FEE97 /* FoodCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC590562480B629007FEE97 /* FoodCategories.swift */; };
 		0DC5905B2480C1AA007FEE97 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5905A2480C1AA007FEE97 /* CardView.swift */; };
-		0DC5905D2480C1BA007FEE97 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5905C2480C1BA007FEE97 /* CardViewController.swift */; };
 		0DC590602480C278007FEE97 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5905F2480C278007FEE97 /* CustomLabel.swift */; };
+		0DC590632484B0D9007FEE97 /* SuggestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC590622484B0D9007FEE97 /* SuggestionTableView.swift */; };
+		0DC590652484B159007FEE97 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC590642484B159007FEE97 /* SuggestionTableViewCell.swift */; };
 		2069EA1DB80848C3DB103547 /* Pods_FoodMood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1BF7A587E8778A12C0C2E5C /* Pods_FoodMood.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D2F85682484F4DB000EB40A /* YelpProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpProperties.swift; sourceTree = "<group>"; };
+		0D2F856A2484F794000EB40A /* YelpPropertiesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpPropertiesFactory.swift; sourceTree = "<group>"; };
 		0DAEF737247D1C2C00DD6380 /* FoodMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,8 +44,9 @@
 		0DAEF75D247D1DC900DD6380 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		0DC590562480B629007FEE97 /* FoodCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCategories.swift; sourceTree = "<group>"; };
 		0DC5905A2480C1AA007FEE97 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		0DC5905C2480C1BA007FEE97 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		0DC5905F2480C278007FEE97 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		0DC590622484B0D9007FEE97 /* SuggestionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableView.swift; sourceTree = "<group>"; };
+		0DC590642484B159007FEE97 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		1337C828518C0FF878A14C9C /* Pods-FoodMood.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMood.release.xcconfig"; path = "Target Support Files/Pods-FoodMood/Pods-FoodMood.release.xcconfig"; sourceTree = "<group>"; };
 		55A82FEE85A07009714D5416 /* Pods-FoodMood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMood.debug.xcconfig"; path = "Target Support Files/Pods-FoodMood/Pods-FoodMood.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BF7A587E8778A12C0C2E5C /* Pods_FoodMood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodMood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +113,8 @@
 				0DC5905A2480C1AA007FEE97 /* CardView.swift */,
 				0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */,
 				0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */,
+				0DC590622484B0D9007FEE97 /* SuggestionTableView.swift */,
+				0DC590642484B159007FEE97 /* SuggestionTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				0DAEF753247D1D2500DD6380 /* MainSwipeViewController.swift */,
-				0DC5905C2480C1BA007FEE97 /* CardViewController.swift */,
 				0DAEF75B247D1DB500DD6380 /* SuggestionViewController.swift */,
 				0DAEF75D247D1DC900DD6380 /* RestaurantViewController.swift */,
 			);
@@ -126,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				0DC590562480B629007FEE97 /* FoodCategories.swift */,
+				0D2F85682484F4DB000EB40A /* YelpProperties.swift */,
+				0D2F856A2484F794000EB40A /* YelpPropertiesFactory.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -279,16 +288,19 @@
 			files = (
 				0DC590572480B629007FEE97 /* FoodCategories.swift in Sources */,
 				0DAEF75C247D1DB500DD6380 /* SuggestionViewController.swift in Sources */,
+				0D2F85692484F4DB000EB40A /* YelpProperties.swift in Sources */,
 				0DAEF75E247D1DC900DD6380 /* RestaurantViewController.swift in Sources */,
+				0DC590632484B0D9007FEE97 /* SuggestionTableView.swift in Sources */,
 				0DAEF758247D1D7500DD6380 /* SuggestionView.swift in Sources */,
 				0DC5905B2480C1AA007FEE97 /* CardView.swift in Sources */,
 				0DAEF754247D1D2500DD6380 /* MainSwipeViewController.swift in Sources */,
+				0D2F856B2484F794000EB40A /* YelpPropertiesFactory.swift in Sources */,
 				0DAEF73B247D1C2C00DD6380 /* AppDelegate.swift in Sources */,
 				0DC590602480C278007FEE97 /* CustomLabel.swift in Sources */,
 				0DAEF756247D1D4F00DD6380 /* MainSwipeView.swift in Sources */,
-				0DC5905D2480C1BA007FEE97 /* CardViewController.swift in Sources */,
 				0DAEF73D247D1C2C00DD6380 /* SceneDelegate.swift in Sources */,
 				0DAEF75A247D1D9700DD6380 /* RestaurantView.swift in Sources */,
+				0DC590652484B159007FEE97 /* SuggestionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

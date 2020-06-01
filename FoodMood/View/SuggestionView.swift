@@ -17,5 +17,32 @@ class SuggestionView: UIView {
         // Drawing code
     }
     */
-
+    var safeArea: UILayoutGuide! // for iphone 10
+    var suggestionTableView = SuggestionTableView()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .blue
+        safeArea = self.layoutMarginsGuide
+        suggestionTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(suggestionTableView)
+        
+        setupConstraints()
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupConstraints() {
+        suggestionTableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        suggestionTableView.topAnchor.constraint(equalTo: self.safeArea.topAnchor).isActive = true
+        suggestionTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        suggestionTableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    }
 }
+
+
+

@@ -14,32 +14,65 @@ class CardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let leftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeMade(_:)))
-        leftRecognizer.direction = .left
-        let rightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeMade(_:)))
-        rightRecognizer.direction = .right
-        self.view.addGestureRecognizer(leftRecognizer)
-        self.view.addGestureRecognizer(rightRecognizer)
         // Do any additional setup after loading the view.
-        print("hello")
         
+        createPanGestureRecognizer(targetView: cardView)
+        print("hello")
     }
     override func loadView() {
         view = cardView
     }
     
     
+    // The Pan Gesture
+    func createPanGestureRecognizer(targetView: UIView) {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureValueChanged(_:)))
+        targetView.addGestureRecognizer(panGesture)
+        print("added pan gesture")
+    }
     
     
     
     
-    @objc func swipeMade(_ sender: UISwipeGestureRecognizer) {
-       if sender.direction == .left {
-          print("left swipe made")
-       }
-       if sender.direction == .right {
-          print("right swipe made")
-       }
+    @objc func panGestureValueChanged(_ sender: UIPanGestureRecognizer) {
+        
+        //this card view is what is passed in not the view
+        let cardView = sender.view!
+        let translationPoint = sender.translation(in: view)
+        cardView.center = CGPoint(x: view.center.x+translationPoint.x, y: view.center.y+translationPoint.y)
+          
+        let distanceMoved = cardView.center.x - view.center.x
+        if distanceMoved > 0 { // moved right side
+            print("Yes")
+//            cardView.transform = CGAffineTransform(rotationAngle: distanceMoved/divisionParam)
+        }
+        else { // moved left side
+            print("No")
+//            cardView.transform = CGAffineTransform(rotationAngle: distanceMoved/divisionParam)
+        }
+          
+        
+        
+        if sender.state == UIGestureRecognizer.State.ended {
+            if cardView.center.x < 20 { // Moved to left
+                UIView.animate(withDuration: 0.3, animations: {
+                    cardView.center = CGPoint(x: cardView.center.x-200, y: cardView.center.y)
+                })
+                return
+            }
+            else if (cardView.center.x > (view.frame.size.width-20)) { // Moved to right
+                UIView.animate(withDuration: 0.3, animations: {
+                    cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
+                })
+                return
+            }
+              
+            UIView.animate(withDuration: 0.2, animations: {
+                cardView.center = self.view.center
+                print("Reached Here")
+                self.cardView.foodCategoryLabel.text = "Changed"
+            })
+        }
     }
     
     func randomizeCard() {
