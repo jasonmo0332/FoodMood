@@ -9,4 +9,7 @@
 import Foundation
 class BusinessInformation {
     var name : String?
+    var rating : Float?
+    var price: String?
+    var address: String?
 }

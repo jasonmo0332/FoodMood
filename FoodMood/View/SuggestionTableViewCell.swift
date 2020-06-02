@@ -22,16 +22,20 @@ class SuggestionTableViewCell: UITableViewCell {
     var priceRange = CustomLabel()
     var foodType = CustomLabel()
     var hoursOfOp = CustomLabel()
+    var streetAddress = CustomLabel()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         mainVerticalStack.translatesAutoresizingMaskIntoConstraints = false
         restaurantName.translatesAutoresizingMaskIntoConstraints = false
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        streetAddress.translatesAutoresizingMaskIntoConstraints = false
         ratingHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
         mainVerticalStack.axis = .vertical
         addSubview(mainVerticalStack)
         restaurantName.textAlignment = .left
+        streetAddress.textAlignment = .left
         mainVerticalStack.addArrangedSubview(restaurantName)
         mainVerticalStack.addSubview(ratingHorizontalStack)
         ratingHorizontalStack.axis = .horizontal
@@ -39,6 +43,7 @@ class SuggestionTableViewCell: UITableViewCell {
         ratingHorizontalStack.addArrangedSubview(ratingLabel)
         generalInfoHorizontalStack.axis = .horizontal
         mainVerticalStack.addSubview(generalInfoHorizontalStack)
+        mainVerticalStack.addArrangedSubview(streetAddress)
         generalInfoHorizontalStack.addArrangedSubview(priceRange)
         generalInfoHorizontalStack.addArrangedSubview(foodType)
         mainVerticalStack.addArrangedSubview(hoursOfOp)
@@ -69,18 +74,18 @@ class SuggestionTableViewCell: UITableViewCell {
             mainVerticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainVerticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        NSLayoutConstraint.activate([
-            ratingHorizontalStack.topAnchor.constraint(equalTo: topAnchor),
-            ratingHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            ratingHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            ratingHorizontalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            generalInfoHorizontalStack.topAnchor.constraint(equalTo: topAnchor),
-            generalInfoHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            generalInfoHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            generalInfoHorizontalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+//        NSLayoutConstraint.activate([
+//            ratingHorizontalStack.topAnchor.constraint(equalTo: mainVerticalStack.topAnchor),
+//            ratingHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            ratingHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            ratingHorizontalStack.bottomAnchor.constraint(equalTo: generalInfoHorizontalStack.bottomAnchor)
+//        ])
+//        NSLayoutConstraint.activate([
+//            generalInfoHorizontalStack.topAnchor.constraint(equalTo: ratingHorizontalStack.bottomAnchor),
+//            generalInfoHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            generalInfoHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            generalInfoHorizontalStack.bottomAnchor.constraint(equalTo: mainVerticalStack.bottomAnchor)
+//        ])
     }
 
 }

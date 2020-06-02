@@ -47,7 +47,9 @@ extension SuggestionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SuggestionTableViewCell
         cell.restaurantName.text = yelpPropertiesCells?[indexPath.row].name
-
+//        cell.ratingLabel.text = (yelpPropertiesCells?[indexPath.row].rating as String).float
+        cell.priceRange.text = yelpPropertiesCells?[indexPath.row].price
+        cell.streetAddress.text = yelpPropertiesCells?[indexPath.row].address
         
         return cell
     }

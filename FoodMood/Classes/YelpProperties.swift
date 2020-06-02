@@ -14,4 +14,11 @@ struct YelpProperties : Codable {
 
 struct Businesses: Codable {
     let name : String
+    let rating : Float?
+    let price: String?
+    let location: Location
+}
+
+struct Location: Codable {
+    let address1 : String
 }

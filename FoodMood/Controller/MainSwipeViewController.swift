@@ -209,7 +209,6 @@ extension MainSwipeViewController {
             do {
 //                let json = try JSONSerialization.jsonObject(with: data!, options: [])
                 let yelpProperties = try self.decoder.decode(YelpProperties.self, from: data!)
-                print(yelpProperties.businesses[0].name)
 //
 //                guard let resp = json as? NSDictionary else {return}
 //
@@ -221,8 +220,12 @@ extension MainSwipeViewController {
                 for business in yelpProperties.businesses {
                     let convertProperties = BusinessInformation()
                     convertProperties.name = business.name
+                    convertProperties.price = business.price
+                    convertProperties.rating = business.rating
+                    convertProperties.address = business.location.address1
                     venuesList.append(convertProperties)
                 }
+                
 
                 
                 completionHandler(venuesList, nil)
