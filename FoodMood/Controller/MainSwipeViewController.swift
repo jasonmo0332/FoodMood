@@ -101,11 +101,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194, category: "Food", limit: 10, sortBy: "best_match", locale: "en_US") { (properties, error) in
                     self.suggestionViewController.yelpPropertiesCells = properties
                     //after completion finishes so threads are not mixed
-                    //Possible issues here
-                    self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
-                    UIView.animate(withDuration: 2, animations: {
-                         self.setupSameCard()
-                     })
+                    
                     
                 }
                
@@ -224,7 +220,11 @@ extension MainSwipeViewController {
                 print(error)
             }
         }.resume()
-        
+        //Possible issues here
+        self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
+        UIView.animate(withDuration: 2, animations: {
+             self.setupSameCard()
+         })
     }
     
 }

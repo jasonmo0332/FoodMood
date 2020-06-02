@@ -30,8 +30,8 @@
             filePath = "FoodMood/Controller/MainSwipeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "retrieveVenues(latitude:longitude:category:limit:sortBy:locale:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
