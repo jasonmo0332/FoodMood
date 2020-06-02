@@ -11,7 +11,7 @@ import UIKit
 class SuggestionViewController: UIViewController {
 
     let suggestionView = SuggestionView()
-    var yelpPropertiesCells: [BusinessInformation]?
+    var yelpPropertiesCells: [YelpBusiness]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ extension SuggestionViewController: UITableViewDataSource {
         cell.restaurantName.text = yelpPropertiesCells?[indexPath.row].name
 //        cell.ratingLabel.text = (yelpPropertiesCells?[indexPath.row].rating as String).float
         cell.priceRange.text = yelpPropertiesCells?[indexPath.row].price
-        cell.streetAddress.text = yelpPropertiesCells?[indexPath.row].address
+        cell.streetAddress.text = yelpPropertiesCells?[indexPath.row].location.address1
         
         return cell
     }

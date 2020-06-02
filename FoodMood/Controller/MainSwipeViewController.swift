@@ -20,12 +20,8 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager?
     var latitude : Double?
     var longitude : Double?
-//    let appId = "60xkWIHq4BodwFEnFy9tSg"
-    let decoder = JSONDecoder()
     
-    
-    
-    
+    let networkingHandler = YelpNetworkingHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,19 +94,18 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
                })
-                retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194, category: "Food", limit: 10, sortBy: "best_match", locale: "en_US") { (properties, error) in
+                
+                networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194) {
+                    [weak self] (properties, error) in
+                    
+                    guard let `self` = self else { return }
                     self.suggestionViewController.yelpPropertiesCells = properties
                     //after completion finishes so threads are not mixed
-                    
+
                     //Possible issues here
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
                     }
-
-                    
-                    
-                    
-                    
                 }
                 
                
@@ -173,8 +168,6 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
 
 }
 
-
-
 extension MainSwipeViewController:  UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self as? UIViewControllerAnimatedTransitioning
@@ -183,59 +176,5 @@ extension MainSwipeViewController:  UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self as? UIViewControllerAnimatedTransitioning
     }
-}
-
-extension MainSwipeViewController {
-    func retrieveVenues(latitude: Double,
-                        longitude: Double,
-                        category: String,
-                        limit: Int,
-                        sortBy: String,
-                        locale: String,
-                        completionHandler: @escaping ([BusinessInformation]?, Error?) -> Void) {
-        let appSecret = "6hguexb3FmGuqh6mwkSouX46D7HnPGkl63GKaqvPhM-mELhyRNH9BthtIOGwsQg_8X6edpGfsKYRllR2ITIj1PXb1duVwhysxvr1k6SLrnZ2IqS5uGS1MxFL_2jQXnYx"
-        //create baseurl
-        let baseURL = "https://api.yelp.com/v3/businesses/search?latitude=\(latitude)&longitude=\(longitude)&categories=\(category)&limit=\(limit)&sort_by=\(sortBy)&locale=\(locale)"
-        let url = URL(string: baseURL)
-        
-        var request = URLRequest(url: url!)
-        request.setValue("Bearer \(appSecret)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        
-        URLSession.shared.dataTask(with: request) { ( data, response, error) in
-            if let error = error {
-                completionHandler(nil, error)
-            }
-            do {
-//                let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                let yelpProperties = try self.decoder.decode(YelpProperties.self, from: data!)
-//
-//                guard let resp = json as? NSDictionary else {return}
-//
-//                guard let businesses = resp.value(forKey: "Businesses") as? [NSDictionary] else { return }
-                
-                var venuesList: [BusinessInformation] = []
-                
-                
-                for business in yelpProperties.businesses {
-                    let convertProperties = BusinessInformation()
-                    convertProperties.name = business.name
-                    convertProperties.price = business.price
-                    convertProperties.rating = business.rating
-                    convertProperties.address = business.location.address1
-                    venuesList.append(convertProperties)
-                }
-                
-
-                
-                completionHandler(venuesList, nil)
-                
-            } catch {
-                print(error)
-            }
-        }.resume()
-        
-    }
-    
 }
 
