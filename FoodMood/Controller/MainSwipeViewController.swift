@@ -102,10 +102,21 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     self.suggestionViewController.yelpPropertiesCells = properties
                     //after completion finishes so threads are not mixed
                     
+                    //Possible issues here
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
+                    }
+
+                    
+                    
+                    
                     
                 }
+                
                
-               
+               UIView.animate(withDuration: 2, animations: {
+                   self.setupSameCard()
+               })
                return
                 
             }
@@ -220,11 +231,7 @@ extension MainSwipeViewController {
                 print(error)
             }
         }.resume()
-        //Possible issues here
-        self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
-        UIView.animate(withDuration: 2, animations: {
-             self.setupSameCard()
-         })
+        
     }
     
 }
