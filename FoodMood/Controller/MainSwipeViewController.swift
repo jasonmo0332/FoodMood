@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import YelpAPI
 
 
 class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
@@ -17,6 +18,14 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     let suggestionViewController = SuggestionViewController()
     let foodCategories = FoodCategories()
     var locationManager: CLLocationManager?
+    var latitude : Double?
+    var longitude : Double?
+//    let appId = "60xkWIHq4BodwFEnFy9tSg"
+    let decoder = JSONDecoder()
+    
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +33,12 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestAlwaysAuthorization()
+        longitude = 122.4194
+        latitude = 37.7749
         mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
         //setup pan gesture
         createPanGestureRecognizer(targetView: mainSwipeView.cardView)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -86,11 +98,17 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
                })
-
-               self.navigationController?.pushViewController(suggestionViewController, animated: false)
-               UIView.animate(withDuration: 2, animations: {
-                    self.setupSameCard()
-                })
+                retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194, category: "Food", limit: 10, sortBy: "best_match", locale: "en_US") { (properties, error) in
+                    self.suggestionViewController.yelpPropertiesCells = properties
+                    //after completion finishes so threads are not mixed
+                    //Possible issues here
+                    self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
+                    UIView.animate(withDuration: 2, animations: {
+                         self.setupSameCard()
+                     })
+                    
+                }
+               
                
                return
                 
@@ -137,24 +155,14 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         return randomNumber
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedAlways {
-            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
-                if CLLocationManager.isRangingAvailable() {
-                    // do stuff
-                }
-            }
-        }
-    }
-    /*
-    // MARK: - Navigation
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        // set the value of lat and long
+        latitude = location.latitude
+        longitude = location.longitude
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }
 
@@ -169,3 +177,55 @@ extension MainSwipeViewController:  UIViewControllerTransitioningDelegate {
         return self as? UIViewControllerAnimatedTransitioning
     }
 }
+
+extension MainSwipeViewController {
+    func retrieveVenues(latitude: Double,
+                        longitude: Double,
+                        category: String,
+                        limit: Int,
+                        sortBy: String,
+                        locale: String,
+                        completionHandler: @escaping ([BusinessInformation]?, Error?) -> Void) {
+        let appSecret = "6hguexb3FmGuqh6mwkSouX46D7HnPGkl63GKaqvPhM-mELhyRNH9BthtIOGwsQg_8X6edpGfsKYRllR2ITIj1PXb1duVwhysxvr1k6SLrnZ2IqS5uGS1MxFL_2jQXnYx"
+        //create baseurl
+        let baseURL = "https://api.yelp.com/v3/businesses/search?latitude=\(latitude)&longitude=\(longitude)&categories=\(category)&limit=\(limit)&sort_by=\(sortBy)&locale=\(locale)"
+        let url = URL(string: baseURL)
+        
+        var request = URLRequest(url: url!)
+        request.setValue("Bearer \(appSecret)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { ( data, response, error) in
+            if let error = error {
+                completionHandler(nil, error)
+            }
+            do {
+//                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                let yelpProperties = try self.decoder.decode(YelpProperties.self, from: data!)
+                print(yelpProperties.businesses[0].name)
+//
+//                guard let resp = json as? NSDictionary else {return}
+//
+//                guard let businesses = resp.value(forKey: "Businesses") as? [NSDictionary] else { return }
+                
+                var venuesList: [BusinessInformation] = []
+                
+                
+                for business in yelpProperties.businesses {
+                    let convertProperties = BusinessInformation()
+                    convertProperties.name = business.name
+                    venuesList.append(convertProperties)
+                }
+
+                
+                completionHandler(venuesList, nil)
+                
+            } catch {
+                print(error)
+            }
+        }.resume()
+        
+    }
+    
+}
+

@@ -12,11 +12,11 @@ class YelpPropertiesFactory {
         var yelpProperties : [YelpProperties] = []
         
         
-        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
-        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
-        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
-        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
-        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
+//        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
+//        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
+//        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
+//        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
+//        yelpProperties.append(YelpProperties.init(restaurantName: "Testing", rating: "4", location: "123 Wild'n Street", priceRange: "$$", foodType: "Yummy", hoursOfOp: "10am - 5pm"))
         
         
         
