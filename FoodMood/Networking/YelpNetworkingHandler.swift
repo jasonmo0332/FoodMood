@@ -53,6 +53,8 @@ class YelpNetworkingHandler {
 }
 
 /// An enum that provides components of URLComponents & URLRequest for given cases to be sent to the YelpAPI
+/// I made it private for now since it doesn't need to accessed by anything other than YelpNetworkingHandler.
+/// If you expand it you can make it internal.
 private enum Router {
     // Venues given a latitude (Double) and longitude (Double)
     case retrieveVenues(Double, Double)
@@ -112,8 +114,7 @@ private enum Router {
     }
 }
 
-/// The service layer performing the actual URLRequest. I made it private for now since it doesn't need to accessed by anything other than YelpNetworkingHandler.
-/// If you expand it you can make it internal.
+/// The service layer performing the actual URLRequest.
 private class ServiceLayer {
     class func request(router: Router, completion: @escaping (Result<Data?, Error>) -> ()) {
         var components = URLComponents()
