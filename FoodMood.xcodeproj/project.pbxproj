@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D2408BD2486BB7E00244D47 /* YelpProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408BC2486BB7E00244D47 /* YelpProperties.swift */; };
+		0D2408BD2486BB7E00244D47 /* YelpBusinessSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408BC2486BB7E00244D47 /* YelpBusinessSearchResponse.swift */; };
 		0D2408BF2486CA1F00244D47 /* BusinessInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408BE2486CA1F00244D47 /* BusinessInformation.swift */; };
 		0DAEF73B247D1C2C00DD6380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */; };
 		0DAEF73D247D1C2C00DD6380 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */; };
@@ -25,10 +25,11 @@
 		0DC590632484B0D9007FEE97 /* SuggestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC590622484B0D9007FEE97 /* SuggestionTableView.swift */; };
 		0DC590652484B159007FEE97 /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC590642484B159007FEE97 /* SuggestionTableViewCell.swift */; };
 		2069EA1DB80848C3DB103547 /* Pods_FoodMood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1BF7A587E8778A12C0C2E5C /* Pods_FoodMood.framework */; };
+		645962222486FD7100FD4C0F /* YelpNetworkingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645962212486FD7100FD4C0F /* YelpNetworkingHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D2408BC2486BB7E00244D47 /* YelpProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpProperties.swift; sourceTree = "<group>"; };
+		0D2408BC2486BB7E00244D47 /* YelpBusinessSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpBusinessSearchResponse.swift; sourceTree = "<group>"; };
 		0D2408BE2486CA1F00244D47 /* BusinessInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessInformation.swift; sourceTree = "<group>"; };
 		0DAEF737247D1C2C00DD6380 /* FoodMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		0DC590642484B159007FEE97 /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		1337C828518C0FF878A14C9C /* Pods-FoodMood.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMood.release.xcconfig"; path = "Target Support Files/Pods-FoodMood/Pods-FoodMood.release.xcconfig"; sourceTree = "<group>"; };
 		55A82FEE85A07009714D5416 /* Pods-FoodMood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodMood.debug.xcconfig"; path = "Target Support Files/Pods-FoodMood/Pods-FoodMood.debug.xcconfig"; sourceTree = "<group>"; };
+		645962212486FD7100FD4C0F /* YelpNetworkingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpNetworkingHandler.swift; sourceTree = "<group>"; };
 		F1BF7A587E8778A12C0C2E5C /* Pods_FoodMood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodMood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -85,6 +87,7 @@
 		0DAEF739247D1C2C00DD6380 /* FoodMood */ = {
 			isa = PBXGroup;
 			children = (
+				645962202486FCBC00FD4C0F /* Networking */,
 				0DC590612480E43D007FEE97 /* Storyboard */,
 				0DC5905E2480C269007FEE97 /* CustomUI */,
 				0DC590552480B608007FEE97 /* Classes */,
@@ -133,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				0DC590562480B629007FEE97 /* FoodCategories.swift */,
-				0D2408BC2486BB7E00244D47 /* YelpProperties.swift */,
+				0D2408BC2486BB7E00244D47 /* YelpBusinessSearchResponse.swift */,
 				0D2408BE2486CA1F00244D47 /* BusinessInformation.swift */,
 			);
 			path = Classes;
@@ -161,6 +164,14 @@
 				F1BF7A587E8778A12C0C2E5C /* Pods_FoodMood.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		645962202486FCBC00FD4C0F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				645962212486FD7100FD4C0F /* YelpNetworkingHandler.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		DEDAACA457FAE16B5C4CB23F /* Pods */ = {
@@ -287,11 +298,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DC590572480B629007FEE97 /* FoodCategories.swift in Sources */,
-				0D2408BD2486BB7E00244D47 /* YelpProperties.swift in Sources */,
+				0D2408BD2486BB7E00244D47 /* YelpBusinessSearchResponse.swift in Sources */,
 				0DAEF75C247D1DB500DD6380 /* SuggestionViewController.swift in Sources */,
 				0DAEF75E247D1DC900DD6380 /* RestaurantViewController.swift in Sources */,
 				0DC590632484B0D9007FEE97 /* SuggestionTableView.swift in Sources */,
 				0DAEF758247D1D7500DD6380 /* SuggestionView.swift in Sources */,
+				645962222486FD7100FD4C0F /* YelpNetworkingHandler.swift in Sources */,
 				0D2408BF2486CA1F00244D47 /* BusinessInformation.swift in Sources */,
 				0DC5905B2480C1AA007FEE97 /* CardView.swift in Sources */,
 				0DAEF754247D1D2500DD6380 /* MainSwipeViewController.swift in Sources */,
