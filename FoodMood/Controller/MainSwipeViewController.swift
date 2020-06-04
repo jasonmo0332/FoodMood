@@ -20,8 +20,8 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager?
     var latitude : Double?
     var longitude : Double?
-    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
-    let networkingHandler = YelpNetworkingHandler()
+//    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +29,6 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestAlwaysAuthorization()
-        longitude = 122.4194
-        latitude = 37.7749
         mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
         //setup pan gesture
         createPanGestureRecognizer(targetView: mainSwipeView.cardView)
@@ -94,23 +92,8 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
                })
-                startActivityIndicator()
-                networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194) {
-                    [weak self] (properties, error) in
-                    
-                    
-                    guard let `self` = self else { return }
-                    self.suggestionViewController.yelpPropertiesCells = properties
-                    //after completion finishes so threads are not mixed
-                    
-                    //Possible issues here
-                    
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
-                    }
-                    self.stopActivityIndicator()
-                }
-                
+
+               self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
                
                UIView.animate(withDuration: 2, animations: {
                    self.setupSameCard()
@@ -169,19 +152,19 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
 
     }
     
-    func startActivityIndicator() {
-        myActivityIndicator.center = view.center
-        // In most cases this will be set to true, so the indicator hides when it stops spinning
-        myActivityIndicator.hidesWhenStopped = true
-
-        // Start the activity indicator and place it onto your view
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-    }
-    
-    func stopActivityIndicator() {
-         myActivityIndicator.stopAnimating()
-    }
+//    func startActivityIndicator() {
+//        myActivityIndicator.center = view.center
+//        // In most cases this will be set to true, so the indicator hides when it stops spinning
+//        myActivityIndicator.hidesWhenStopped = true
+//
+//        // Start the activity indicator and place it onto your view
+//        myActivityIndicator.startAnimating()
+//        view.addSubview(myActivityIndicator)
+//    }
+//    
+//    func stopActivityIndicator() {
+//         myActivityIndicator.stopAnimating()
+//    }
 
 }
 

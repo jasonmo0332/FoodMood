@@ -12,29 +12,64 @@ class SuggestionViewController: UIViewController {
 
     let suggestionView = SuggestionView()
     var yelpPropertiesCells: [YelpBusiness]?
+    let networkingHandler = YelpNetworkingHandler()
+    var latitude : Double?
+    var longitude : Double?
+    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         suggestionView.suggestionTableView.dataSource = self
         suggestionView.suggestionTableView.delegate = self
         suggestionView.suggestionTableView.rowHeight = 100
+        latitude = 37.7749
+        longitude = 122.4194
+        
+        print("Hello")
         
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        
+        retrievingResponse()
     }
     
     override func loadView() {
         view = suggestionView
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func retrievingResponse() {
+        startActivityIndicator()
+        networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194) {
+            [weak self] (properties, error) in
+            
+            
+            guard let `self` = self else { return }
+            self.yelpPropertiesCells = properties
+            
+            
+            DispatchQueue.main.async {
+                self.stopActivityIndicator()
+                self.suggestionView.suggestionTableView.reloadData()
+            }
+            
+        }
+        
     }
-    */
+    
+    func startActivityIndicator() {
+        myActivityIndicator.center = view.center
+        // In most cases this will be set to true, so the indicator hides when it stops spinning
+        myActivityIndicator.hidesWhenStopped = true
+
+        // Start the activity indicator and place it onto your view
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+    }
+    
+    func stopActivityIndicator() {
+         myActivityIndicator.stopAnimating()
+    }
 
 }
 
@@ -60,7 +95,7 @@ extension SuggestionViewController: UITableViewDataSource {
 
 extension SuggestionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = profileCells[indexPath.row]
+//        let cell = yelpPropertiesCells?[indexPath.row]
     }
     
 }
