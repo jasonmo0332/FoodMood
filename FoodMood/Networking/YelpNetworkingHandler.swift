@@ -47,6 +47,9 @@ class YelpNetworkingHandler {
         }
     }
     
+    func retrieveVenuesPhotos() {
+        
+    }
     func handleError(_ error: Error) {
         // TODO: Write error function
     }
@@ -91,7 +94,7 @@ private enum Router {
             return [
                 URLQueryItem(name: "latitude", value: "\(latitude)"),
                 URLQueryItem(name: "longitude", value: "\(longitude)"),
-                URLQueryItem(name: "categories", value: "food"),
+                URLQueryItem(name: "categories", value: "Food"),
                 URLQueryItem(name: "limit", value: "\(10)"),
                 URLQueryItem(name: "sortBy", value: "best_match"),
                 URLQueryItem(name: "locale", value: "en_US")
@@ -115,6 +118,7 @@ private enum Router {
 }
 
 /// The service layer performing the actual URLRequest.
+/// https://www.swiftbysundell.com/articles/constructing-urls-in-swift/
 private class ServiceLayer {
     class func request(router: Router, completion: @escaping (Result<Data?, Error>) -> ()) {
         var components = URLComponents()

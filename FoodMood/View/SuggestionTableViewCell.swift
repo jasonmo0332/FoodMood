@@ -15,7 +15,15 @@ class SuggestionTableViewCell: UITableViewCell {
     var ratingHorizontalStack = UIStackView()
     var restaurantName = CustomLabel()
     var ratingImageView = UIImageView()
-    var ratingImage = UIImage()
+//    var ratingImage1 = UIImage(named: "rating1")
+//    var ratingImage1Half = UIImage(named: "rating1Half")
+//    var ratingImage2 = UIImage(named: "rating2")
+//    var ratingImage2Half = UIImage(named: "rating2Half")
+//    var ratingImage3 = UIImage(named: "rating3")
+//    var ratingImage3Half = UIImage(named: "rating3Half")
+//    var ratingImage4 = UIImage(named: "rating4")
+//    var ratingImage4Half = UIImage(named: "rating4Half")
+//    var ratingImage5 = UIImage(named: "rating5")
     var ratingLabel = CustomLabel()
     var generalInfoHorizontalStack = UIStackView()
     var location = CustomLabel()
@@ -36,8 +44,9 @@ class SuggestionTableViewCell: UITableViewCell {
         addSubview(mainVerticalStack)
         restaurantName.textAlignment = .left
         streetAddress.textAlignment = .left
+        mainVerticalStack.addArrangedSubview(photoHorizontalStack)
         mainVerticalStack.addArrangedSubview(restaurantName)
-        mainVerticalStack.addSubview(ratingHorizontalStack)
+        mainVerticalStack.addArrangedSubview(ratingHorizontalStack)
         ratingHorizontalStack.axis = .horizontal
         ratingHorizontalStack.addArrangedSubview(ratingImageView)
         ratingHorizontalStack.addArrangedSubview(ratingLabel)
@@ -75,10 +84,10 @@ class SuggestionTableViewCell: UITableViewCell {
             mainVerticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 //        NSLayoutConstraint.activate([
-//            ratingHorizontalStack.topAnchor.constraint(equalTo: mainVerticalStack.topAnchor),
+//            ratingHorizontalStack.topAnchor.constraint(equalTo: ),
 //            ratingHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
 //            ratingHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            ratingHorizontalStack.bottomAnchor.constraint(equalTo: generalInfoHorizontalStack.bottomAnchor)
+//            ratingHorizontalStack.bottomAnchor.constraint(equalTo: generalInfoHorizontalStack.topAnchor)
 //        ])
 //        NSLayoutConstraint.activate([
 //            generalInfoHorizontalStack.topAnchor.constraint(equalTo: ratingHorizontalStack.bottomAnchor),

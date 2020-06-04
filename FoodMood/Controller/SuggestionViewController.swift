@@ -21,9 +21,8 @@ class SuggestionViewController: UIViewController {
         super.viewDidLoad()
         suggestionView.suggestionTableView.dataSource = self
         suggestionView.suggestionTableView.delegate = self
-        suggestionView.suggestionTableView.rowHeight = 100
-        latitude = 37.7749
-        longitude = 122.4194
+        suggestionView.suggestionTableView.rowHeight = 200
+        print("view did load \(String(describing: longitude)) and \(String(describing: latitude))")
         
         print("Hello")
         
@@ -43,7 +42,7 @@ class SuggestionViewController: UIViewController {
         networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194) {
             [weak self] (properties, error) in
             
-            
+            print("in handler \(String(describing: self?.longitude)) and \(String(describing: self?.latitude))")
             guard let `self` = self else { return }
             self.yelpPropertiesCells = properties
             
@@ -83,6 +82,11 @@ extension SuggestionViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SuggestionTableViewCell
         cell.restaurantName.text = yelpPropertiesCells?[indexPath.row].name
 //        cell.ratingLabel.text = (yelpPropertiesCells?[indexPath.row].rating as String).float
+        cell.ratingImageView.image = UIImage(named: "rating5")
+        cell.ratingLabel.text = "5 reviews"
+        
+            //set image to 4.5
+        
         cell.priceRange.text = yelpPropertiesCells?[indexPath.row].price
         cell.streetAddress.text = yelpPropertiesCells?[indexPath.row].location.address1
         

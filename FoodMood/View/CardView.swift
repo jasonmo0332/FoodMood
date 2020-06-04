@@ -42,5 +42,6 @@ class CardView: UIView {
             foodCategoryLabel.widthAnchor.constraint(equalToConstant: 100),
             foodCategoryLabel.heightAnchor.constraint(equalToConstant: 100)
         ])
+        
     }
 }

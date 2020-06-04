@@ -56,3 +56,7 @@ struct YelpLocation: Codable {
 struct YelpRegion: Codable {
     let center: YelpCoordinates
 }
+
+
+
+

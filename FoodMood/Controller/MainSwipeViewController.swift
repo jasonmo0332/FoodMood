@@ -14,22 +14,32 @@ import YelpAPI
 class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
     let mainSwipeView = MainSwipeView()
-//    var divisionParam: CGFloat!
+
     let suggestionViewController = SuggestionViewController()
     let foodCategories = FoodCategories()
     var locationManager: CLLocationManager?
     var latitude : Double?
     var longitude : Double?
-//    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //set up location manager
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestAlwaysAuthorization()
+        var currentLocation: CLLocation!
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            currentLocation = locationManager?.location
+            suggestionViewController.longitude = currentLocation.coordinate.longitude
+            suggestionViewController.latitude = currentLocation.coordinate.latitude
+        }
+        
+        //randomize the category of food to start
         mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
+        
         //setup pan gesture
         createPanGestureRecognizer(targetView: mainSwipeView.cardView)
         
@@ -50,7 +60,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     
-    
+    //https://insights.nimblechapps.com/app-development/ios-app-development/how-to-make-tinder-like-swipe-gesture-for-ios help with tinder-like swipe
     @objc func panGestureValueChanged(_ sender: UIPanGestureRecognizer) {
         
         //this card view is what is passed in not the view
@@ -60,13 +70,6 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         cardView.center = CGPoint(x: view.center.x+translationPoint.x, y: originalY)
           
         let distanceMoved = cardView.center.x - view.center.x
-//            if distanceMoved > 0 { // moved right side
-//
-//            }
-//            else { // moved left side
-//
-//
-//            }
 
         //rotates the card
         cardView.transform = CGAffineTransform(rotationAngle: distanceMoved/(view.frame.size.width/2)/1.5)
@@ -92,8 +95,8 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
                })
-
-               self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
+                
+                self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
                
                UIView.animate(withDuration: 2, animations: {
                    self.setupSameCard()
