@@ -11,19 +11,11 @@ import UIKit
 class SuggestionTableViewCell: UITableViewCell {
 
     var mainVerticalStack = UIStackView()
-    var photoHorizontalStack = UIStackView()
+    var photoImageView = UIImageView()
     var ratingHorizontalStack = UIStackView()
     var restaurantName = CustomLabel()
     var ratingImageView = UIImageView()
-//    var ratingImage1 = UIImage(named: "rating1")
-//    var ratingImage1Half = UIImage(named: "rating1Half")
-//    var ratingImage2 = UIImage(named: "rating2")
-//    var ratingImage2Half = UIImage(named: "rating2Half")
-//    var ratingImage3 = UIImage(named: "rating3")
-//    var ratingImage3Half = UIImage(named: "rating3Half")
-//    var ratingImage4 = UIImage(named: "rating4")
-//    var ratingImage4Half = UIImage(named: "rating4Half")
-//    var ratingImage5 = UIImage(named: "rating5")
+
     var ratingLabel = CustomLabel()
     var generalInfoHorizontalStack = UIStackView()
     var location = CustomLabel()
@@ -31,7 +23,7 @@ class SuggestionTableViewCell: UITableViewCell {
     var foodType = CustomLabel()
     var hoursOfOp = CustomLabel()
     var streetAddress = CustomLabel()
-    
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,14 +36,19 @@ class SuggestionTableViewCell: UITableViewCell {
         addSubview(mainVerticalStack)
         restaurantName.textAlignment = .left
         streetAddress.textAlignment = .left
-        mainVerticalStack.addArrangedSubview(photoHorizontalStack)
+        photoImageView.contentMode = .scaleAspectFill
+        photoImageView.clipsToBounds = true
+        mainVerticalStack.addArrangedSubview(photoImageView)
         mainVerticalStack.addArrangedSubview(restaurantName)
         mainVerticalStack.addArrangedSubview(ratingHorizontalStack)
         ratingHorizontalStack.axis = .horizontal
+        ratingImageView.contentMode = .scaleAspectFit
+        ratingImageView.clipsToBounds = true
+        ratingHorizontalStack.alignment = .leading
         ratingHorizontalStack.addArrangedSubview(ratingImageView)
         ratingHorizontalStack.addArrangedSubview(ratingLabel)
         generalInfoHorizontalStack.axis = .horizontal
-        mainVerticalStack.addSubview(generalInfoHorizontalStack)
+        mainVerticalStack.addArrangedSubview(generalInfoHorizontalStack)
         mainVerticalStack.addArrangedSubview(streetAddress)
         generalInfoHorizontalStack.addArrangedSubview(priceRange)
         generalInfoHorizontalStack.addArrangedSubview(foodType)
@@ -83,6 +80,12 @@ class SuggestionTableViewCell: UITableViewCell {
             mainVerticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainVerticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+//        NSLayoutConstraint.activate([
+//            photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor)
+//
+//
+//        ])
+        
 //        NSLayoutConstraint.activate([
 //            ratingHorizontalStack.topAnchor.constraint(equalTo: ),
 //            ratingHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),

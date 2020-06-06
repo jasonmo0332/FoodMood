@@ -9,13 +9,31 @@
 import UIKit
 
 class RestaurantViewController: UIViewController {
-
+    var id: String?
+    let restaurantView = RestaurantView()
+    
+    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
+    
+    func startActivityIndicator() {
+        myActivityIndicator.center = view.center
+        // In most cases this will be set to true, so the indicator hides when it stops spinning
+        myActivityIndicator.hidesWhenStopped = true
+
+        // Start the activity indicator and place it onto your view
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+    }
+    
+    func stopActivityIndicator() {
+         myActivityIndicator.stopAnimating()
+    }
 
     /*
     // MARK: - Navigation

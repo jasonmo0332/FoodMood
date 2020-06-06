@@ -13,6 +13,8 @@ class SuggestionViewController: UIViewController {
     let suggestionView = SuggestionView()
     var yelpPropertiesCells: [YelpBusiness]?
     let networkingHandler = YelpNetworkingHandler()
+    let restaurantViewController = RestaurantViewController()
+    let remoteImageHelper = RemoteImageHelper()
     var latitude : Double?
     var longitude : Double?
     var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
@@ -46,7 +48,6 @@ class SuggestionViewController: UIViewController {
             guard let `self` = self else { return }
             self.yelpPropertiesCells = properties
             
-            
             DispatchQueue.main.async {
                 self.stopActivityIndicator()
                 self.suggestionView.suggestionTableView.reloadData()
@@ -69,6 +70,39 @@ class SuggestionViewController: UIViewController {
     func stopActivityIndicator() {
          myActivityIndicator.stopAnimating()
     }
+    
+    func convertFloatToString(floatValue: Float) -> String {
+        let convertedFloat = floatValue.description
+        return convertedFloat
+        
+    }
+    
+    
+    //Ex rating value is 3, set to rating3
+    func setRatingImage(ratingValue : Float) -> String {
+        switch ratingValue {
+        case 5.0:
+            return "rating5"
+        case 4.5:
+            return "rating4Half"
+        case 4.0:
+            return "rating4"
+        case 3.5:
+            return "rating3Half"
+        case 3.0:
+            return "rating3"
+        case 2.5:
+            return "rating2Half"
+        case 2.0:
+            return "rating2"
+        case 1.5:
+            return "rating1Half"
+        case 1:
+            return "rating1"
+        default:
+            return "rating0"
+        }
+    }
 
 }
 
@@ -80,10 +114,14 @@ extension SuggestionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SuggestionTableViewCell
+        remoteImageHelper.retrieveImage(urlString: yelpPropertiesCells?[indexPath.row].imageUrl) {
+            image in cell.photoImageView.image = image
+        }
         cell.restaurantName.text = yelpPropertiesCells?[indexPath.row].name
-//        cell.ratingLabel.text = (yelpPropertiesCells?[indexPath.row].rating as String).float
-        cell.ratingImageView.image = UIImage(named: "rating5")
-        cell.ratingLabel.text = "5 reviews"
+        cell.ratingLabel.text = convertFloatToString(floatValue: (yelpPropertiesCells?[indexPath.row].rating)!)
+        cell.ratingImageView.image = UIImage(named: setRatingImage(ratingValue: (yelpPropertiesCells?[indexPath.row].rating)!))
+        
+        
         
             //set image to 4.5
         
@@ -100,6 +138,8 @@ extension SuggestionViewController: UITableViewDataSource {
 extension SuggestionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let cell = yelpPropertiesCells?[indexPath.row]
+        
+        self.navigationController?.pushViewController(self.restaurantViewController, animated: false)
     }
     
 }

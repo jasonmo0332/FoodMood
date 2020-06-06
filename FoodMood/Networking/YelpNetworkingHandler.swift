@@ -47,7 +47,7 @@ class YelpNetworkingHandler {
         }
     }
     
-    func retrieveVenuesPhotos() {
+    func retrieveVenue(id : String) {
         
     }
     func handleError(_ error: Error) {
@@ -62,11 +62,13 @@ private enum Router {
     // Venues given a latitude (Double) and longitude (Double)
     case retrieveVenues(Double, Double)
     // You can add more cases here when you want to access the YelpAPI (other any other API)'s different endpoints
-    
+    case retrieveVenue(String)
     /// The scheme subcomponent of the URL
     var scheme: String {
         switch self {
         case .retrieveVenues(_,_):
+            return "https"
+        case .retrieveVenue(_):
             return "https"
         }
     }
@@ -84,6 +86,8 @@ private enum Router {
         switch self {
         case .retrieveVenues(_,_):
             return "/v3/businesses/search"
+        case .retrieveVenue(let id):
+            return "v3/businesses/" + id
         }
     }
     
@@ -95,10 +99,15 @@ private enum Router {
                 URLQueryItem(name: "latitude", value: "\(latitude)"),
                 URLQueryItem(name: "longitude", value: "\(longitude)"),
                 URLQueryItem(name: "categories", value: "Food"),
-                URLQueryItem(name: "limit", value: "\(10)"),
+                URLQueryItem(name: "limit", value: "\(40)"),
                 URLQueryItem(name: "sortBy", value: "best_match"),
                 URLQueryItem(name: "locale", value: "en_US")
             ]
+        case .retrieveVenue:
+            return [
+                URLQueryItem(name: "locale", value: "en_US")
+            ]
+            
         }
     }
     
@@ -112,6 +121,8 @@ private enum Router {
     var method: String {
         switch self {
         case .retrieveVenues:
+            return "GET"
+        case .retrieveVenue:
             return "GET"
         }
     }

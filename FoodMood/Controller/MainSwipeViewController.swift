@@ -25,17 +25,6 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //set up location manager
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
-        var currentLocation: CLLocation!
-        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways) {
-            currentLocation = locationManager?.location
-            suggestionViewController.longitude = currentLocation.coordinate.longitude
-            suggestionViewController.latitude = currentLocation.coordinate.latitude
-        }
         
         //randomize the category of food to start
         mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
@@ -43,7 +32,16 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         //setup pan gesture
         createPanGestureRecognizer(targetView: mainSwipeView.cardView)
         
-        // Do any additional setup after loading the view.
+        //set up location manager
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        locationManager?.requestLocation()
+        
+        
+        
+        
+        
     }
     
     override func loadView() {
@@ -148,11 +146,20 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+//        guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         // set the value of lat and long
-        latitude = location.latitude
-        longitude = location.longitude
+        guard let currentLocation = locations.first else { return }
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            suggestionViewController.longitude = currentLocation.coordinate.longitude
+            suggestionViewController.latitude = currentLocation.coordinate.latitude
+        }
+        
 
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
     }
     
 //    func startActivityIndicator() {

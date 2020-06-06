@@ -10,6 +10,7 @@
 		0D2408BD2486BB7E00244D47 /* YelpBusinessSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408BC2486BB7E00244D47 /* YelpBusinessSearchResponse.swift */; };
 		0D2408BF2486CA1F00244D47 /* BusinessInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408BE2486CA1F00244D47 /* BusinessInformation.swift */; };
 		0D2408C12488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408C02488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift */; };
+		0D2408C5248A828600244D47 /* RemoteImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408C4248A828600244D47 /* RemoteImageHelper.swift */; };
 		0DAEF73B247D1C2C00DD6380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */; };
 		0DAEF73D247D1C2C00DD6380 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */; };
 		0DAEF744247D1C3100DD6380 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAEF743247D1C3100DD6380 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		0D2408BC2486BB7E00244D47 /* YelpBusinessSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpBusinessSearchResponse.swift; sourceTree = "<group>"; };
 		0D2408BE2486CA1F00244D47 /* BusinessInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessInformation.swift; sourceTree = "<group>"; };
 		0D2408C02488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpBusinessSearchIdResponse.swift; sourceTree = "<group>"; };
+		0D2408C4248A828600244D47 /* RemoteImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageHelper.swift; sourceTree = "<group>"; };
 		0DAEF737247D1C2C00DD6380 /* FoodMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				645962212486FD7100FD4C0F /* YelpNetworkingHandler.swift */,
+				0D2408C4248A828600244D47 /* RemoteImageHelper.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				0DAEF75C247D1DB500DD6380 /* SuggestionViewController.swift in Sources */,
 				0DAEF75E247D1DC900DD6380 /* RestaurantViewController.swift in Sources */,
 				0DC590632484B0D9007FEE97 /* SuggestionTableView.swift in Sources */,
+				0D2408C5248A828600244D47 /* RemoteImageHelper.swift in Sources */,
 				0DAEF758247D1D7500DD6380 /* SuggestionView.swift in Sources */,
 				645962222486FD7100FD4C0F /* YelpNetworkingHandler.swift in Sources */,
 				0D2408BF2486CA1F00244D47 /* BusinessInformation.swift in Sources */,
