@@ -17,22 +17,52 @@ class SuggestionViewController: UIViewController {
     let remoteImageHelper = RemoteImageHelper()
     var latitude : Double?
     var longitude : Double?
-    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    var category: String?
+    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
     
+    final let MILE_CONVERTER : Float = 0.00062137119224
     override func viewDidLoad() {
         super.viewDidLoad()
         suggestionView.suggestionTableView.dataSource = self
         suggestionView.suggestionTableView.delegate = self
-        suggestionView.suggestionTableView.rowHeight = 200
-        print("view did load \(String(describing: longitude)) and \(String(describing: latitude))")
+        suggestionView.suggestionTableView.rowHeight = 250
         
-        print("Hello")
         
         // Do any additional setup after loading the view.
-    }
-    override func viewDidAppear(_ animated: Bool) {
         
-        retrievingResponse()
+    }
+    
+//    init(latitude: Double, longitude: Double, category: String) {
+//        super.init(nibName: nil, bundle: nil)
+//        print("view did load \(String(describing: longitude)) and \(String(describing: latitude))")
+//
+//        print("\(category)")
+//        retrievingResponse()
+//
+//    }
+    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+    print("view did load \(String(describing: longitude)) and \(String(describing: latitude))")
+
+       print("\(category)")
+       retrievingResponse()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+            yelpPropertiesCells?.removeAll()
+            self.suggestionView.suggestionTableView.reloadData()
+            print("remove cells?")
+        }
     }
     
     override func loadView() {
@@ -41,7 +71,7 @@ class SuggestionViewController: UIViewController {
 
     func retrievingResponse() {
         startActivityIndicator()
-        networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194) {
+        networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194, category: category ?? "") {
             [weak self] (properties, error) in
             
             print("in handler \(String(describing: self?.longitude)) and \(String(describing: self?.latitude))")
@@ -50,6 +80,7 @@ class SuggestionViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.stopActivityIndicator()
+//                self.suggestionView.suggestionTableView.isHidden = false
                 self.suggestionView.suggestionTableView.reloadData()
             }
             
@@ -77,6 +108,11 @@ class SuggestionViewController: UIViewController {
         
     }
     
+    func convertMetersToMiles(meters: Float) -> String {
+        let miles = meters * MILE_CONVERTER
+        let convertedMiles = String(format: "%.2f",miles) + " mi"
+        return convertedMiles
+    }
     
     //Ex rating value is 3, set to rating3
     func setRatingImage(ratingValue : Float) -> String {
@@ -99,6 +135,8 @@ class SuggestionViewController: UIViewController {
             return "rating1Half"
         case 1:
             return "rating1"
+        case 0.5:
+            return "rating0Half"
         default:
             return "rating0"
         }
@@ -123,11 +161,12 @@ extension SuggestionViewController: UITableViewDataSource {
         
         
         
-            //set image to 4.5
         
+        //set image to 4.5
         cell.priceRange.text = yelpPropertiesCells?[indexPath.row].price
+        cell.foodType.text = yelpPropertiesCells?[indexPath.row].categories[0].title
         cell.streetAddress.text = yelpPropertiesCells?[indexPath.row].location.address1
-        
+        cell.distanceLabel.text = convertMetersToMiles(meters: Float((yelpPropertiesCells?[indexPath.row].distance)!))
         return cell
     }
     

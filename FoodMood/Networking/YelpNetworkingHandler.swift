@@ -17,8 +17,8 @@ class YelpNetworkingHandler {
     ///   - latitude:Longitude of a given location.
     ///   - longitude: Latitude of a given location.
     ///   - completionHandler: An array of `YelpBusiness` objects if it exists, or an `Error` object if something goes wrong.
-    func retrieveVenues(latitude: Double, longitude: Double, completionHandler: @escaping ([YelpBusiness]?, Error?) -> Void) {
-        ServiceLayer.request(router: .retrieveVenues(latitude, longitude)) { (result: Result<Data?, Error>) in
+    func retrieveVenues(latitude: Double, longitude: Double, category: String, completionHandler: @escaping ([YelpBusiness]?, Error?) -> Void) {
+        ServiceLayer.request(router: .retrieveVenues(latitude, longitude, category)) { (result: Result<Data?, Error>) in
             switch result {
             case .success(let data):
                 guard let data = data else {
@@ -60,13 +60,13 @@ class YelpNetworkingHandler {
 /// If you expand it you can make it internal.
 private enum Router {
     // Venues given a latitude (Double) and longitude (Double)
-    case retrieveVenues(Double, Double)
+    case retrieveVenues(Double, Double, String)
     // You can add more cases here when you want to access the YelpAPI (other any other API)'s different endpoints
     case retrieveVenue(String)
     /// The scheme subcomponent of the URL
     var scheme: String {
         switch self {
-        case .retrieveVenues(_,_):
+        case .retrieveVenues(_,_,_):
             return "https"
         case .retrieveVenue(_):
             return "https"
@@ -84,7 +84,7 @@ private enum Router {
     /// The path subcomponent
     var path: String {
         switch self {
-        case .retrieveVenues(_,_):
+        case .retrieveVenues(_,_,_):
             return "/v3/businesses/search"
         case .retrieveVenue(let id):
             return "v3/businesses/" + id
@@ -94,11 +94,11 @@ private enum Router {
     /// Parameters in the form of URLQueryItems given a latitude/longitude pair
     var parameters: [URLQueryItem] {
         switch self {
-        case .retrieveVenues(let latitude, let longitude):
+        case .retrieveVenues(let latitude, let longitude, let category):
             return [
                 URLQueryItem(name: "latitude", value: "\(latitude)"),
                 URLQueryItem(name: "longitude", value: "\(longitude)"),
-                URLQueryItem(name: "categories", value: "Food"),
+                URLQueryItem(name: "categories", value: "\(category)"),
                 URLQueryItem(name: "limit", value: "\(40)"),
                 URLQueryItem(name: "sortBy", value: "best_match"),
                 URLQueryItem(name: "locale", value: "en_US")

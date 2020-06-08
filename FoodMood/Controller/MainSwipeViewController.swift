@@ -14,12 +14,14 @@ import YelpAPI
 class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
     let mainSwipeView = MainSwipeView()
-
+    var latitude : Double?
+    var longitude : Double?
+    var category : String?
+//    let suggestionViewController = SuggestionViewController(latitude: 0, longitude: 0, category: "")
     let suggestionViewController = SuggestionViewController()
     let foodCategories = FoodCategories()
     var locationManager: CLLocationManager?
-    var latitude : Double?
-    var longitude : Double?
+    
 
     
     
@@ -71,7 +73,6 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
 
         //rotates the card
         cardView.transform = CGAffineTransform(rotationAngle: distanceMoved/(view.frame.size.width/2)/1.5)
-        print("before end")
         
         if sender.state == UIGestureRecognizer.State.ended {
             if cardView.center.x < 20 { // Moved to left
@@ -93,6 +94,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
                })
+                suggestionViewController.category = mainSwipeView.cardView.foodCategoryLabel.text?.lowercased()
                 
                 self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
                

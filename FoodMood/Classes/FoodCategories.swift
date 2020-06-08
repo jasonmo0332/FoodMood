@@ -9,7 +9,7 @@
 import Foundation
 
 class FoodCategories {
-    var foodCategories = ["Chinese", "Japanese", "Brunch", "Dessert", "American", "Cajun", "Indian"]
+    var foodCategories = ["Chinese", "Japanese", "American", "Cajun", "Indian", "French", "Italian", "Latin", "Mexican", "German"]
     
     func refreshFoodCategories() {
         

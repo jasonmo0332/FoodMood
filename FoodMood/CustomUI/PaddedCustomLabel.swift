@@ -1,14 +1,15 @@
 //
-//  CustomLabel.swift
+//  PaddedCustomLabel.swift
 //  FoodMood
 //
-//  Created by Jason Mo on 5/28/20.
+//  Created by Jason Mo on 6/7/20.
 //  Copyright © 2020 Jason Mo. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class CustomLabel : UILabel {
+class PaddedCustomLabel : UILabel {
     
     var topInset: CGFloat = 2.0
     var bottomInset: CGFloat = 5.0
@@ -42,5 +43,14 @@ class CustomLabel : UILabel {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    override func drawText(in rect: CGRect) {
+        let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
+        super.drawText(in: rect.inset(by: insets))
+    }
     
+    override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize(width: size.width + leftInset + rightInset,
+                      height: size.height + topInset + bottomInset)
+    }
 }
