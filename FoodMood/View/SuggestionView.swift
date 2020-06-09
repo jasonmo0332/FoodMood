@@ -24,7 +24,7 @@ class SuggestionView: UIView {
         backgroundColor = .blue
         safeArea = self.layoutMarginsGuide
         suggestionTableView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         addSubview(suggestionTableView)
         
         setupConstraints()

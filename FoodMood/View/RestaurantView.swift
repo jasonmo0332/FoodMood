@@ -17,5 +17,26 @@ class RestaurantView: UIView {
         // Drawing code
     }
     */
-
+    var mainVerticalStack = UIStackView()
+    var informationHorizontalStack = UIStackView()
+    var callButon = UIButton()
+    var visitYelpPage = UIButton()
+    
+    var fullAddress = UIButton()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        mainVerticalStack.translatesAutoresizingMaskIntoConstraints = false
+        mainVerticalStack.axis = .vertical
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setupConstraints() {
+        
+    }
 }

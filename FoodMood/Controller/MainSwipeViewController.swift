@@ -21,7 +21,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     let suggestionViewController = SuggestionViewController()
     let foodCategories = FoodCategories()
     var locationManager: CLLocationManager?
-    
+    let hapticFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
     
     
@@ -82,6 +82,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 })
                 //new card slides back
                 UIView.animate(withDuration: 1.8, animations: {
+                    self.hapticFeedbackGenerator.impactOccurred()
                     self.setupNewCard()
                 })
                 
@@ -94,10 +95,13 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
                })
+                
+                
                 suggestionViewController.category = mainSwipeView.cardView.foodCategoryLabel.text?.lowercased()
                 
+                hapticFeedbackGenerator.impactOccurred()
                 self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
-               
+                
                UIView.animate(withDuration: 2, animations: {
                    self.setupSameCard()
                })

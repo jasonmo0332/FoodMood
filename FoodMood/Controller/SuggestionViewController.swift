@@ -18,7 +18,7 @@ class SuggestionViewController: UIViewController {
     var latitude : Double?
     var longitude : Double?
     var category: String?
-    var myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+    let activityIndicator = CustomActivityIndicator()
     
     final let MILE_CONVERTER : Float = 0.00062137119224
     override func viewDidLoad() {
@@ -70,7 +70,7 @@ class SuggestionViewController: UIViewController {
     }
 
     func retrievingResponse() {
-        startActivityIndicator()
+        activityIndicator.startActivityIndicator(view: self.suggestionView)
         networkingHandler.retrieveVenues(latitude: latitude ?? 37.7749, longitude: longitude ?? 122.4194, category: category ?? "") {
             [weak self] (properties, error) in
             
@@ -79,8 +79,7 @@ class SuggestionViewController: UIViewController {
             self.yelpPropertiesCells = properties
             
             DispatchQueue.main.async {
-                self.stopActivityIndicator()
-//                self.suggestionView.suggestionTableView.isHidden = false
+                self.activityIndicator.stopActivityIndicator()
                 self.suggestionView.suggestionTableView.reloadData()
             }
             
@@ -88,23 +87,16 @@ class SuggestionViewController: UIViewController {
         
     }
     
-    func startActivityIndicator() {
-        myActivityIndicator.center = view.center
-        // In most cases this will be set to true, so the indicator hides when it stops spinning
-        myActivityIndicator.hidesWhenStopped = true
 
-        // Start the activity indicator and place it onto your view
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-    }
-    
-    func stopActivityIndicator() {
-         myActivityIndicator.stopAnimating()
-    }
     
     func convertFloatToString(floatValue: Float) -> String {
         let convertedFloat = floatValue.description
         return convertedFloat
+        
+    }
+    func convertReviewCountIntToString(intValue: Int) -> String {
+        let convertedInt = intValue.description + " Reviews"
+        return convertedInt
         
     }
     
@@ -156,7 +148,7 @@ extension SuggestionViewController: UITableViewDataSource {
             image in cell.photoImageView.image = image
         }
         cell.restaurantName.text = yelpPropertiesCells?[indexPath.row].name
-        cell.ratingLabel.text = convertFloatToString(floatValue: (yelpPropertiesCells?[indexPath.row].rating)!)
+        cell.ratingLabel.text = convertReviewCountIntToString(intValue: (yelpPropertiesCells?[indexPath.row].reviewCount)!)
         cell.ratingImageView.image = UIImage(named: setRatingImage(ratingValue: (yelpPropertiesCells?[indexPath.row].rating)!))
         
         

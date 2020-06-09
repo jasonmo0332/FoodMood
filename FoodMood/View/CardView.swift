@@ -24,6 +24,7 @@ class CardView: UIView {
         backgroundColor = .red
         foodCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         foodCategoryLabel.textAlignment = .center
+        
         addSubview(foodCategoryLabel)
         
         setupConstraints()

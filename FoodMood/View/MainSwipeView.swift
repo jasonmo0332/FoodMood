@@ -24,6 +24,7 @@ class MainSwipeView: UIView {
         super.init(frame: frame)
         backgroundColor = UIColor(red: 172/255, green: 252/255, blue: 217/255, alpha: 1)
         cardView.translatesAutoresizingMaskIntoConstraints = false
+        cardView.layer.cornerRadius = 50
         addSubview(cardView)
         
         
@@ -39,8 +40,8 @@ class MainSwipeView: UIView {
         NSLayoutConstraint.activate([
             cardView.centerXAnchor.constraint(equalTo: centerXAnchor),
             cardView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cardView.widthAnchor.constraint(equalToConstant: 200),
-            cardView.heightAnchor.constraint(equalToConstant: 200)
+            cardView.widthAnchor.constraint(equalToConstant: 250),
+            cardView.heightAnchor.constraint(equalToConstant: 300)
         ])
         
     }

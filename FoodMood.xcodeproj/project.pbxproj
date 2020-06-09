@@ -12,6 +12,7 @@
 		0D2408C12488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408C02488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift */; };
 		0D2408C5248A828600244D47 /* RemoteImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408C4248A828600244D47 /* RemoteImageHelper.swift */; };
 		0D2408C7248D61CF00244D47 /* PaddedCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408C6248D61CF00244D47 /* PaddedCustomLabel.swift */; };
+		0D2408C924904D2500244D47 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2408C824904D2500244D47 /* CustomActivityIndicator.swift */; };
 		0DAEF73B247D1C2C00DD6380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */; };
 		0DAEF73D247D1C2C00DD6380 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */; };
 		0DAEF744247D1C3100DD6380 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAEF743247D1C3100DD6380 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		0D2408C02488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpBusinessSearchIdResponse.swift; sourceTree = "<group>"; };
 		0D2408C4248A828600244D47 /* RemoteImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageHelper.swift; sourceTree = "<group>"; };
 		0D2408C6248D61CF00244D47 /* PaddedCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedCustomLabel.swift; sourceTree = "<group>"; };
+		0D2408C824904D2500244D47 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		0DAEF737247D1C2C00DD6380 /* FoodMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				0DC5905F2480C278007FEE97 /* CustomLabel.swift */,
 				0D2408C6248D61CF00244D47 /* PaddedCustomLabel.swift */,
+				0D2408C824904D2500244D47 /* CustomActivityIndicator.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				0D2408C7248D61CF00244D47 /* PaddedCustomLabel.swift in Sources */,
 				0D2408C12488EEBA00244D47 /* YelpBusinessSearchIdResponse.swift in Sources */,
 				0DAEF754247D1D2500DD6380 /* MainSwipeViewController.swift in Sources */,
+				0D2408C924904D2500244D47 /* CustomActivityIndicator.swift in Sources */,
 				0DAEF73B247D1C2C00DD6380 /* AppDelegate.swift in Sources */,
 				0DC590602480C278007FEE97 /* CustomLabel.swift in Sources */,
 				0DAEF756247D1D4F00DD6380 /* MainSwipeView.swift in Sources */,
