@@ -13,7 +13,7 @@ class SuggestionViewController: UIViewController {
     let suggestionView = SuggestionView()
     var yelpPropertiesCells: [YelpBusiness]?
     let networkingHandler = YelpNetworkingHandler()
-    let restaurantViewController = RestaurantViewController()
+    
     let remoteImageHelper = RemoteImageHelper()
     var latitude : Double?
     var longitude : Double?
@@ -106,6 +106,13 @@ class SuggestionViewController: UIViewController {
         return convertedMiles
     }
     
+    func determineClosed(isClosed : Bool) -> String {
+        if isClosed == true {
+            return "Open"
+        }
+        return "Closed"
+    }
+    
     //Ex rating value is 3, set to rating3
     func setRatingImage(ratingValue : Float) -> String {
         switch ratingValue {
@@ -159,6 +166,7 @@ extension SuggestionViewController: UITableViewDataSource {
         cell.foodType.text = yelpPropertiesCells?[indexPath.row].categories[0].title
         cell.streetAddress.text = yelpPropertiesCells?[indexPath.row].location.address1
         cell.distanceLabel.text = convertMetersToMiles(meters: Float((yelpPropertiesCells?[indexPath.row].distance)!))
+        
         return cell
     }
     
@@ -168,9 +176,10 @@ extension SuggestionViewController: UITableViewDataSource {
 
 extension SuggestionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let restaurantViewController = RestaurantViewController()
 //        let cell = yelpPropertiesCells?[indexPath.row]
-        
-        self.navigationController?.pushViewController(self.restaurantViewController, animated: false)
+        restaurantViewController.id = yelpPropertiesCells?[indexPath.row].id
+        self.navigationController?.pushViewController(restaurantViewController, animated: false)
     }
     
 }

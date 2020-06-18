@@ -18,13 +18,18 @@ class CardView: UIView {
     }
     */
     var foodCategoryLabel = CustomLabel()
-    
+//    var foodCategoryIconImageView = UIImageView()
+//    var foodCategoryIconImage = UIImage(named: "phFlag")
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .red
+        layer.borderWidth = 5
+        layer.borderColor = UIColor.black.cgColor
         foodCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
+//        foodCategoryIconImageView.translatesAutoresizingMaskIntoConstraints = false
         foodCategoryLabel.textAlignment = .center
-        
+//        foodCategoryIconImageView.image = foodCategoryIconImage
+//        foodCategoryIconImageView.contentMode = .scaleAspectFit
+//        addSubview(foodCategoryIconImageView)
         addSubview(foodCategoryLabel)
         
         setupConstraints()
@@ -44,5 +49,12 @@ class CardView: UIView {
             foodCategoryLabel.heightAnchor.constraint(equalToConstant: 100)
         ])
         
+//        NSLayoutConstraint.activate([
+//            foodCategoryIconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            foodCategoryIconImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
+//            foodCategoryIconImageView.widthAnchor.constraint(equalToConstant: 100),
+//            foodCategoryIconImageView.heightAnchor.constraint(equalToConstant: 100)
+//        ])
+//
     }
 }

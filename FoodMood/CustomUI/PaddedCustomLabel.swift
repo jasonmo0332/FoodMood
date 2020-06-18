@@ -26,7 +26,9 @@ class PaddedCustomLabel : UILabel {
             switch type {
             case .title:
                 textColor = .black
-                font = UIFont.systemFont(ofSize: 16)
+                font = UIFont.boldSystemFont(ofSize: 20.0)
+                lineBreakMode = NSLineBreakMode.byWordWrapping
+                numberOfLines = 0
             case .subtitle:
                 textColor = .darkGray
                 font = UIFont.systemFont(ofSize: 12)

@@ -13,16 +13,18 @@ class SuggestionTableViewCell: UITableViewCell {
     var mainVerticalStack = UIStackView()
     var photoImageView = UIImageView()
     var ratingHorizontalStack = UIStackView()
+    var addressHorizontalStack = UIStackView()
     var restaurantName = PaddedCustomLabel()
     var ratingImageView = UIImageView()
 
     var ratingLabel = PaddedCustomLabel()
     var generalInfoHorizontalStack = UIStackView()
-    var generalInfoSpacer = PaddedCustomLabel()
+    var generalInfoSpacer1 = PaddedCustomLabel()
+    var generalInfoSpacer2 = PaddedCustomLabel()
     var location = PaddedCustomLabel()
     var priceRange = PaddedCustomLabel()
     var foodType = PaddedCustomLabel()
-    var hoursOfOp = PaddedCustomLabel()
+    
     var streetAddress = PaddedCustomLabel()
     var distanceLabel = PaddedCustomLabel()
     
@@ -33,10 +35,15 @@ class SuggestionTableViewCell: UITableViewCell {
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         streetAddress.translatesAutoresizingMaskIntoConstraints = false
         ratingHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
-        generalInfoSpacer.translatesAutoresizingMaskIntoConstraints = false
+        generalInfoSpacer1.translatesAutoresizingMaskIntoConstraints = false
+        generalInfoSpacer2.translatesAutoresizingMaskIntoConstraints = false
         distanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         mainVerticalStack.axis = .vertical
+        
         addSubview(mainVerticalStack)
+        restaurantName.type = .title
         restaurantName.textAlignment = .left
         streetAddress.textAlignment = .left
         photoImageView.contentMode = .scaleAspectFill
@@ -53,14 +60,20 @@ class SuggestionTableViewCell: UITableViewCell {
         ratingHorizontalStack.addArrangedSubview(ratingImageView)
         ratingHorizontalStack.addArrangedSubview(ratingLabel)
         generalInfoHorizontalStack.axis = .horizontal
-        generalInfoSpacer.text = "•"
+        generalInfoSpacer1.text = "•"
+        
         mainVerticalStack.addArrangedSubview(generalInfoHorizontalStack)
-        mainVerticalStack.addArrangedSubview(streetAddress)
+        
+        addressHorizontalStack.axis = .horizontal
+        mainVerticalStack.addArrangedSubview(addressHorizontalStack)
+        addressHorizontalStack.addArrangedSubview(streetAddress)
+        generalInfoSpacer2.text = "•"
+        addressHorizontalStack.addArrangedSubview(generalInfoSpacer2)
+        addressHorizontalStack.addArrangedSubview(distanceLabel)
         generalInfoHorizontalStack.addArrangedSubview(priceRange)
-        generalInfoHorizontalStack.addArrangedSubview(generalInfoSpacer)
+        generalInfoHorizontalStack.addArrangedSubview(generalInfoSpacer1)
         generalInfoHorizontalStack.addArrangedSubview(foodType)
-        mainVerticalStack.addArrangedSubview(hoursOfOp)
-        mainVerticalStack.addArrangedSubview(distanceLabel)
+
         
         setupConstraints()
     }
@@ -89,26 +102,33 @@ class SuggestionTableViewCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-        
+            ratingImageView.leadingAnchor.constraint(equalTo: restaurantName.leadingAnchor, constant: 10),
+            ratingImageView.widthAnchor.constraint(equalToConstant: 100 )
         ])
-//        NSLayoutConstraint.activate([
-//            photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor)
-//
-//
-//        ])
+        NSLayoutConstraint.activate([
+            ratingLabel.leadingAnchor.constraint(equalTo: ratingImageView.trailingAnchor)
+        ])
         
-//        NSLayoutConstraint.activate([
-//            ratingHorizontalStack.topAnchor.constraint(equalTo: ),
-//            ratingHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            ratingHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            ratingHorizontalStack.bottomAnchor.constraint(equalTo: generalInfoHorizontalStack.topAnchor)
-//        ])
-//        NSLayoutConstraint.activate([
-//            generalInfoHorizontalStack.topAnchor.constraint(equalTo: ratingHorizontalStack.bottomAnchor),
-//            generalInfoHorizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            generalInfoHorizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            generalInfoHorizontalStack.bottomAnchor.constraint(equalTo: mainVerticalStack.bottomAnchor)
-//        ])
+        NSLayoutConstraint.activate([
+            priceRange.leadingAnchor.constraint(equalTo: restaurantName.leadingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            generalInfoSpacer1.leadingAnchor.constraint(equalTo: priceRange.trailingAnchor )
+        ])
+        NSLayoutConstraint.activate([
+           foodType.leadingAnchor.constraint(equalTo: generalInfoSpacer1.trailingAnchor )
+        ])
+        
+        NSLayoutConstraint.activate([
+           generalInfoSpacer2.leadingAnchor.constraint(equalTo: streetAddress.trailingAnchor )
+        ])
+
+        NSLayoutConstraint.activate([
+           distanceLabel.leadingAnchor.constraint(equalTo: generalInfoSpacer2.trailingAnchor )
+        ])
+        
+        
+        
     }
 
 }

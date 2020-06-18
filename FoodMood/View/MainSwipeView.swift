@@ -19,12 +19,17 @@ class MainSwipeView: UIView {
     */
     
     let cardView = CardView()
+    var refreshButton = CustomButton()
+    //<div>Icons made by <a href="https://creativemarket.com/Becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    var refreshButtomImage = UIImage(named: "refreshButton")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 172/255, green: 252/255, blue: 217/255, alpha: 1)
+        backgroundColor = .white
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.layer.cornerRadius = 50
+        refreshButton.setImage(refreshButtomImage, for: .normal)
+        addSubview(refreshButton)
         addSubview(cardView)
         
         
@@ -40,10 +45,20 @@ class MainSwipeView: UIView {
         NSLayoutConstraint.activate([
             cardView.centerXAnchor.constraint(equalTo: centerXAnchor),
             cardView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cardView.widthAnchor.constraint(equalToConstant: 250),
-            cardView.heightAnchor.constraint(equalToConstant: 300)
+            cardView.widthAnchor.constraint(equalToConstant: 200),
+            cardView.heightAnchor.constraint(equalToConstant: 400)
         ])
         
+        NSLayoutConstraint.activate([
+            refreshButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -50),
+            refreshButton.centerYAnchor.constraint(equalTo: centerYAnchor,constant: -100),
+            refreshButton.widthAnchor.constraint(equalToConstant: 32),
+            refreshButton.heightAnchor.constraint(equalToConstant: 32)
+            
+        
+        
+        
+        ])
     }
 
 }

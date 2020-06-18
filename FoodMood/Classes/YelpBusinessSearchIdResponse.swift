@@ -9,16 +9,16 @@
 import Foundation
 //https://www.yelp.com/developers/documentation/v3/business
 
-struct YelpBusinessSearchIdResponse {
+struct YelpBusinessSearchIdResponse : Codable {
     let id : String?
     let alias : String?
     let name: String?
     let imageUrl: String?
-    let isClaimed: String?
+    let isClaimed: Bool?
     let url: String?
     let phone: String?
     let displayPhone: String?
-    let reviewCount: String?
+    let reviewCount: Int?
     let categories: [YelpBusinessSearchIdCategory]?
     let rating: Double?
     let location : YelpBusinessSearchLocationCategory?
@@ -26,17 +26,17 @@ struct YelpBusinessSearchIdResponse {
     let photos : [String]?
     let price : String?
     let hours: [YelpBusinessSearchLocationOpen]?
-    let transctions : [String]
+    let transctions : [String]?
     let specialHours: [YelpBusinessSearchLocationSpecialHours]?
     
 }
 
-struct YelpBusinessSearchIdCategory {
+struct YelpBusinessSearchIdCategory : Codable {
     let alias : String?
     let title : String?
 }
 
-struct YelpBusinessSearchLocationCategory {
+struct YelpBusinessSearchLocationCategory : Codable {
     let address1 : String?
     let address2 : String?
     let address3 : String?
@@ -49,12 +49,12 @@ struct YelpBusinessSearchLocationCategory {
 }
 
 
-struct YelpBusinessSearchLocationCoordinates {
+struct YelpBusinessSearchLocationCoordinates : Codable {
     let latitude: Double?
     let longitude: Double?
 }
 
-struct YelpBusinessSearchLocationOpen {
+struct YelpBusinessSearchLocationOpen : Codable{
     let isOvernight : Bool?
     let start : String?
     let end : String?
@@ -63,7 +63,7 @@ struct YelpBusinessSearchLocationOpen {
     let isOpenNow : Bool?
 }
 
-struct YelpBusinessSearchLocationSpecialHours {
+struct YelpBusinessSearchLocationSpecialHours : Codable{
     let date : String?
     let isClosed : Bool?
     let start : String?

@@ -1,16 +1,20 @@
 PODS:
+  - CSV.swift (2.4.3)
   - YelpAPI (3.0.0)
 
 DEPENDENCIES:
+  - CSV.swift (~> 2.4.3)
   - YelpAPI
 
 SPEC REPOS:
   trunk:
+    - CSV.swift
     - YelpAPI
 
 SPEC CHECKSUMS:
+  CSV.swift: d38741b349c067b4a6db42237cb0e2974d21ccac
   YelpAPI: 9ae0ee45b998d306c1aff9b2d966dc23121f191e
 
-PODFILE CHECKSUM: cff00305f9cd0fd876f42c4e890b7272a3d710c4
+PODFILE CHECKSUM: 736f203654fefe530ecce5ef39e558c8d5405f95
 
 COCOAPODS: 1.8.4

@@ -7,5 +7,6 @@ target 'FoodMood' do
 
   # Pods for FoodMood
   pod "YelpAPI"
+  pod 'CSV.swift', '~> 2.4.3'
 
 end

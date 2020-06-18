@@ -47,11 +47,39 @@ class YelpNetworkingHandler {
         }
     }
     
-    func retrieveVenue(id : String) {
-        
+    func retrieveVenue(id : String, completionHandler: @escaping (YelpBusinessSearchIdResponse?, Error?) -> Void) {
+        ServiceLayer.request(router: .retrieveVenue(id)) { (result: Result<Data?, Error>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data else {
+                        // TODO: Handle error here
+                        completionHandler(nil, nil) // TODO: fix
+                        return
+                    }
+                    
+                    var targetData: YelpBusinessSearchIdResponse?
+                    do {
+                        try targetData = BaseModelDecoder.decode(data)
+                    } catch {
+                        self.handleError(error)
+                        completionHandler(nil, error)
+                    }
+                    
+                    if let targetData = targetData {
+                        completionHandler(targetData, nil)
+                    } else {
+                        completionHandler(nil, nil) // TODO: fix
+                    }
+                case .failure(let error):
+                    self.handleError(error)
+                    completionHandler(nil, error)
+                }
+            }
     }
+        
     func handleError(_ error: Error) {
         // TODO: Write error function
+        print(error)
     }
 }
 
@@ -87,7 +115,7 @@ private enum Router {
         case .retrieveVenues(_,_,_):
             return "/v3/businesses/search"
         case .retrieveVenue(let id):
-            return "v3/businesses/" + id
+            return "/v3/businesses/" + id
         }
     }
     

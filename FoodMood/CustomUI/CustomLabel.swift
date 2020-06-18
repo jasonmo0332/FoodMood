@@ -10,10 +10,6 @@ import UIKit
 
 class CustomLabel : UILabel {
     
-    var topInset: CGFloat = 2.0
-    var bottomInset: CGFloat = 5.0
-    var leftInset: CGFloat = 10.0
-    var rightInset: CGFloat = 0
     
     enum LabelType {
         case title
@@ -25,9 +21,11 @@ class CustomLabel : UILabel {
             switch type {
             case .title:
                 textColor = .black
-                font = UIFont.systemFont(ofSize: 16)
+                font = UIFont.boldSystemFont(ofSize: 16.0)
+                lineBreakMode = NSLineBreakMode.byWordWrapping
+                numberOfLines = 0
             case .subtitle:
-                textColor = .darkGray
+                textColor = .lightGray
                 font = UIFont.systemFont(ofSize: 12)
             default:
                 break

@@ -28,6 +28,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //randomize the category of food to start
         mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
         
@@ -55,9 +56,12 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     func createPanGestureRecognizer(targetView: UIView) {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureValueChanged(_:)))
         targetView.addGestureRecognizer(panGesture)
-        print("added pan gesture")
+        
     }
     
+    @objc func refreshButtonDidPressed(sender: Any) {
+        
+    }
     
     
     //https://insights.nimblechapps.com/app-development/ios-app-development/how-to-make-tinder-like-swipe-gesture-for-ios help with tinder-like swipe
@@ -96,8 +100,9 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     
                })
                 
+                guard let currentFoodCategory = mainSwipeView.cardView.foodCategoryLabel.text else { return }
                 
-                suggestionViewController.category = mainSwipeView.cardView.foodCategoryLabel.text?.lowercased()
+                suggestionViewController.category = retrieveFoodCategoryQueryEquiavlent(currentFoodCategory: currentFoodCategory)
                 
                 hapticFeedbackGenerator.impactOccurred()
                 self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
@@ -117,6 +122,11 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
             })
         }
         
+    }
+    
+    func retrieveFoodCategoryQueryEquiavlent(currentFoodCategory: String) -> String? {
+        guard let currentQuery = foodCategories.foodCategoriesQueryDictionary[currentFoodCategory] else { return "" }
+        return currentQuery
     }
         
     func setupNewCard() {
@@ -144,6 +154,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         foodCategories.refreshFoodCategories()
         return "Empty"
     }
+
     
     func randomNumberGenerator(arraySize : Int) -> Int {
         let randomNumber = Int.random(in: 0..<arraySize)
