@@ -166,7 +166,7 @@ class RestaurantViewController: UIViewController {
 
 extension RestaurantViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return yelpImages.count
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -177,7 +177,7 @@ extension RestaurantViewController : UICollectionViewDelegateFlowLayout, UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         print("\(yelpImages) Here")
 //        cell.imageView.image = yelpImages[indexPath.row
-        
+        cell.backgroundColor = .blue
         return cell
     }
 }

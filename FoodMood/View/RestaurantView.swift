@@ -72,6 +72,7 @@ class RestaurantView: UIView {
         viewYelpPageLabel.textAlignment = .center
         viewYelpPageLabel.type = .subtitle
         restaurantName.type = .title
+        restaurantName.backgroundColor = .clear
 
         addSubview(restaurantName)
         

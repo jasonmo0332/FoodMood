@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CSV
+
 
 class FoodCategories {
     var foodCategories : [String] = []
