@@ -41,7 +41,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         locationManager?.requestAlwaysAuthorization()
         locationManager?.requestLocation()
         
-        
+        mainSwipeView.refreshButton.addTarget(self, action: #selector(refreshButtonDidPressed(sender:)), for: .touchUpInside)
         
         
         
@@ -60,7 +60,8 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func refreshButtonDidPressed(sender: Any) {
-        
+        foodCategories.refreshFoodCategories()
+        self.mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
     }
     
     
@@ -103,6 +104,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 guard let currentFoodCategory = mainSwipeView.cardView.foodCategoryLabel.text else { return }
                 
                 suggestionViewController.category = retrieveFoodCategoryQueryEquiavlent(currentFoodCategory: currentFoodCategory)
+                suggestionViewController.categoryName = currentFoodCategory
                 
                 hapticFeedbackGenerator.impactOccurred()
                 self.navigationController?.pushViewController(self.suggestionViewController, animated: false)

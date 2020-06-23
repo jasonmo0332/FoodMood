@@ -9,17 +9,17 @@
 import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
-    let imageView = UIImageView()
+    var imageView = UIImageView()
     
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
-        
-        contentView.addSubview(imageView)
+//        imageView.image = UIImage(named: "rating2")
+        addSubview(imageView)
         
         setupConstraints()
     }
@@ -30,10 +30,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
     }

@@ -24,40 +24,70 @@ class RestaurantView: UIView {
     var callLabel = CustomLabel()
     var viewMapLabel = CustomLabel()
     var viewYelpPageLabel = CustomLabel()
-    var yelpPhotoImageView1 = UIImageView()
-    var yelpPhotoImageView2 = UIImageView()
-    var yelpPhotoImageView3 = UIImageView()
+    var yelpRatingImageView = UIImageView()
+    var numberOfRatingsLabel = PaddedCustomLabel()
+    var isBusinessCurrentlyOpenLabel = PaddedCustomLabel()
     
-    var photoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    var photoCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let photoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        photoCollectionView.backgroundColor = .clear
+        photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        photoCollectionView.contentInsetAdjustmentBehavior = .automatic
+        return photoCollectionView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        photoCollectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(photoCollectionView)
-        
         backgroundColor = .white
+        
+        photoCollectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
+        
+        photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
         restaurantName.translatesAutoresizingMaskIntoConstraints = false
+        yelpRatingImageView.translatesAutoresizingMaskIntoConstraints = false
+        numberOfRatingsLabel.translatesAutoresizingMaskIntoConstraints = false
         callButton.translatesAutoresizingMaskIntoConstraints = false
         visitYelpPageButton.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         viewMapLabel.translatesAutoresizingMaskIntoConstraints = false
         viewYelpPageLabel.translatesAutoresizingMaskIntoConstraints = false
         callLabel.translatesAutoresizingMaskIntoConstraints = false
         mapAddressButton.translatesAutoresizingMaskIntoConstraints = false
-        yelpPhotoImageView1.translatesAutoresizingMaskIntoConstraints = false
-        yelpPhotoImageView2.translatesAutoresizingMaskIntoConstraints = false
-        yelpPhotoImageView3.translatesAutoresizingMaskIntoConstraints = false
-        
-        yelpPhotoImageView1.contentMode = .scaleAspectFill
-        yelpPhotoImageView2.contentMode = .scaleAspectFill
-        yelpPhotoImageView3.contentMode = .scaleAspectFill
-        yelpPhotoImageView1.clipsToBounds = true
-        yelpPhotoImageView2.clipsToBounds = true
-        yelpPhotoImageView3.clipsToBounds = true
+        isBusinessCurrentlyOpenLabel.translatesAutoresizingMaskIntoConstraints = false
         
         
+        setupButtons()
+        setupLabels()
+        setupImageView()
+        addSubview(photoCollectionView)
+        addSubview(restaurantName)
+        
+        
+        addSubview(callButton)
+        addSubview(visitYelpPageButton)
+        addSubview(mapAddressButton)
+        addSubview(viewYelpPageLabel)
+        addSubview(viewMapLabel)
+        addSubview(callLabel)
+        addSubview(yelpRatingImageView)
+        addSubview(numberOfRatingsLabel)
+        addSubview(isBusinessCurrentlyOpenLabel)
+        addSubview(addressLabel)
+        
+        
+        
+        setupConstraints()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupButtons() {
         callButton.setImage(callButtonImage, for: .normal)
         visitYelpPageButton.setImage(visitYelpPageImage, for: .normal)
         mapAddressButton.setImage(mapAddressButtonImage, for: .normal)
@@ -71,46 +101,46 @@ class RestaurantView: UIView {
         viewYelpPageLabel.text = "View on Yelp"
         viewYelpPageLabel.textAlignment = .center
         viewYelpPageLabel.type = .subtitle
+    }
+    
+    func setupLabels() {
         restaurantName.type = .title
         restaurantName.backgroundColor = .clear
-
-        addSubview(restaurantName)
-        
+        restaurantName.textColor = .white
+        restaurantName.layer.shadowOpacity = 0.5
+        restaurantName.layer.shadowRadius = 0.5
+        restaurantName.layer.shadowColor = UIColor.black.cgColor
+        restaurantName.layer.shadowOffset = CGSize(width: 1, height: 1)
+        restaurantName.layer.masksToBounds = false
         restaurantName.textAlignment = .left
-        addSubview(callButton)
-        addSubview(visitYelpPageButton)
-        addSubview(mapAddressButton)
         
+        numberOfRatingsLabel.textAlignment = .left
+        numberOfRatingsLabel.backgroundColor = .clear
+        numberOfRatingsLabel.textColor = .white
+        numberOfRatingsLabel.layer.shadowOpacity = 0.5
+        numberOfRatingsLabel.layer.shadowRadius = 0.5
+        numberOfRatingsLabel.layer.shadowColor = UIColor.black.cgColor
+        numberOfRatingsLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        numberOfRatingsLabel.layer.masksToBounds = false
         
-        
-        addSubview(viewYelpPageLabel)
-        addSubview(viewMapLabel)
-        addSubview(callLabel)
-        addSubview(addressLabel)
-        
-        addSubview(yelpPhotoImageView1)
-        addSubview(yelpPhotoImageView2)
-        addSubview(yelpPhotoImageView3)
-        
-        setupConstraints()
-        
+        isBusinessCurrentlyOpenLabel.backgroundColor = .clear
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setupImageView() {
+        yelpRatingImageView.contentMode = .scaleAspectFit
+        yelpRatingImageView.clipsToBounds = true
     }
-    
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
             restaurantName.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -20),
-            restaurantName.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -250),
+            restaurantName.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -180),
             restaurantName.leadingAnchor.constraint(equalTo: leadingAnchor),
             restaurantName.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         NSLayoutConstraint.activate([
             callButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -100),
-            callButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -150),
+            callButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
             callButton.widthAnchor.constraint(equalToConstant: 32),
             callButton.heightAnchor.constraint(equalToConstant: 32)
             
@@ -118,14 +148,14 @@ class RestaurantView: UIView {
         
         NSLayoutConstraint.activate([
             mapAddressButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            mapAddressButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -150),
+            mapAddressButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
             mapAddressButton.widthAnchor.constraint(equalToConstant: 32),
             mapAddressButton.heightAnchor.constraint(equalToConstant: 32)
         
         ])
         NSLayoutConstraint.activate([
             visitYelpPageButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 100),
-            visitYelpPageButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -150),
+            visitYelpPageButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
             visitYelpPageButton.widthAnchor.constraint(equalToConstant: 32),
             visitYelpPageButton.heightAnchor.constraint(equalToConstant: 32)
         
@@ -147,36 +177,35 @@ class RestaurantView: UIView {
             callLabel.centerXAnchor.constraint(equalTo: callButton.centerXAnchor)
         
         ])
+
         NSLayoutConstraint.activate([
-            photoCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            photoCollectionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 150),
-            photoCollectionView.widthAnchor.constraint(equalToConstant: 300),
-            photoCollectionView.heightAnchor.constraint(equalToConstant: 300)
+            photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            photoCollectionView.heightAnchor.constraint(equalToConstant: 300),
+            photoCollectionView.topAnchor.constraint(equalTo: topAnchor)
         
         ])
         
-//        NSLayoutConstraint.activate([
-//            yelpPhotoImageView1.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -100),
-//            yelpPhotoImageView1.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 150),
-//            yelpPhotoImageView1.widthAnchor.constraint(equalToConstant: 100),
-//            yelpPhotoImageView1.heightAnchor.constraint(equalToConstant: 100)
-//
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            yelpPhotoImageView2.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-//            yelpPhotoImageView2.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 150),
-//            yelpPhotoImageView2.widthAnchor.constraint(equalToConstant: 100),
-//            yelpPhotoImageView2.heightAnchor.constraint(equalToConstant: 100)
-//
-//        ])
+        NSLayoutConstraint.activate([
+            yelpRatingImageView.topAnchor.constraint(equalTo: restaurantName.bottomAnchor, constant: 10),
+            yelpRatingImageView.leadingAnchor.constraint(equalTo: restaurantName.leadingAnchor, constant: 10),
+            yelpRatingImageView.widthAnchor.constraint(equalToConstant: 100),
+            
+            
         
-//        NSLayoutConstraint.activate([
-//            yelpPhotoImageView3.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 100),
-//            yelpPhotoImageView3.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 150),
-//            yelpPhotoImageView3.widthAnchor.constraint(equalToConstant: 100),
-//            yelpPhotoImageView3.heightAnchor.constraint(equalToConstant: 100)
-//
-//        ])
+        ])
+        
+        NSLayoutConstraint.activate([
+            isBusinessCurrentlyOpenLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -10),
+            isBusinessCurrentlyOpenLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -80),
+            isBusinessCurrentlyOpenLabel.widthAnchor.constraint(equalToConstant: 300)
+        
+        ])
+        NSLayoutConstraint.activate([
+            numberOfRatingsLabel.leadingAnchor.constraint(equalTo: yelpRatingImageView.trailingAnchor),
+            numberOfRatingsLabel.topAnchor.constraint(equalTo: yelpRatingImageView.topAnchor)
+        ])
+        
+
     }
 }

@@ -27,6 +27,8 @@ class CardView: UIView {
         foodCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
 //        foodCategoryIconImageView.translatesAutoresizingMaskIntoConstraints = false
         foodCategoryLabel.textAlignment = .center
+        foodCategoryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        foodCategoryLabel.numberOfLines = 0
 //        foodCategoryIconImageView.image = foodCategoryIconImage
 //        foodCategoryIconImageView.contentMode = .scaleAspectFit
 //        addSubview(foodCategoryIconImageView)

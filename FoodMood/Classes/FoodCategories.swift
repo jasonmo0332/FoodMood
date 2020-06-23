@@ -33,7 +33,6 @@ class FoodCategories {
         "Baguettes",
         "Bangladeshi",
         "Barbeque",
-        "Bavarian",
         "Belgian",
         "Brazilian",
         "Breakfast & Brunch",
@@ -47,7 +46,6 @@ class FoodCategories {
         "Caribbean",
         "Cheesesteaks",
         "Chicken Wings",
-        "Chilean",
         "Chinese",
         "Comfort Food",
         "Cuban",
@@ -84,7 +82,7 @@ class FoodCategories {
         "Laotian",
         "Latin American",
         "Malaysian",
-        "Kediterranean",
+        "Mediterranean",
         "Mexican",
         "Middle Eastern",
         "Mogolian",
@@ -134,8 +132,7 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Austrian"] = "austrian"
         foodCategoriesQueryDictionary["Baguettes"] = "baguettes"
         foodCategoriesQueryDictionary["Bangladeshi"] = "bangladeshi"
-        foodCategoriesQueryDictionary["Barbeque"] = "barbeque"
-        foodCategoriesQueryDictionary["Bavarian"] = "bavarian"
+        foodCategoriesQueryDictionary["Barbeque"] = "bbq"
         foodCategoriesQueryDictionary["Belgian"] = "belgian"
         foodCategoriesQueryDictionary["Brazilian"] = "brazilian"
         foodCategoriesQueryDictionary["Breakfast & Brunch"] = "breakfast_brunch"
@@ -149,7 +146,6 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Caribbean"] = "caribbean"
         foodCategoriesQueryDictionary["Cheesesteaks"] = "cheesesteaks"
         foodCategoriesQueryDictionary["Chicken Wings"] = "chicken_wings"
-        foodCategoriesQueryDictionary["Chilean"] = "chilean"
         foodCategoriesQueryDictionary["Chinese"] = "chinese"
         foodCategoriesQueryDictionary["Comfort Food"] = "comfortfood"
         foodCategoriesQueryDictionary["Cuban"] = "cuban"
@@ -160,7 +156,7 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Fast Food"] = "hotdogs"
         foodCategoriesQueryDictionary["Filipino"] = "filipino"
         foodCategoriesQueryDictionary["Fish & chips"] = "fishnchips"
-        foodCategoriesQueryDictionary["Food Court"] = "food_cout"
+        foodCategoriesQueryDictionary["Food Court"] = "food_court"
         foodCategoriesQueryDictionary["Food Stands"] = "foodstands"
         foodCategoriesQueryDictionary["French"] = "french"
         foodCategoriesQueryDictionary["German"] = "german"
@@ -186,7 +182,7 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Laotian"] = "laotian"
         foodCategoriesQueryDictionary["Latin American"] = "latin american"
         foodCategoriesQueryDictionary["Malaysian"] = "malaysian"
-        foodCategoriesQueryDictionary["Kediterranean"] = "kediterranean"
+        foodCategoriesQueryDictionary["Mediterranean"] = "mediterranean"
         foodCategoriesQueryDictionary["Mexican"] = "mexican"
         foodCategoriesQueryDictionary["Middle Eastern"] = "midaeastern"
         foodCategoriesQueryDictionary["Mogolian"] = "mogolian"
@@ -229,6 +225,6 @@ class FoodCategories {
     
     
     func refreshFoodCategories() {
-        
+        setUpFoodCategories()
     }
 }

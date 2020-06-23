@@ -25,7 +25,7 @@ struct YelpBusinessSearchIdResponse : Codable {
     let coordinates : YelpBusinessSearchLocationCoordinates?
     let photos : [String]?
     let price : String?
-    let hours: [YelpBusinessSearchLocationOpen]?
+    let hours: [YelpBusinessSearchLocationHours]?
     let transctions : [String]?
     let specialHours: [YelpBusinessSearchLocationSpecialHours]?
     
@@ -54,13 +54,17 @@ struct YelpBusinessSearchLocationCoordinates : Codable {
     let longitude: Double?
 }
 
-struct YelpBusinessSearchLocationOpen : Codable{
+struct YelpBusinessSearchLocationHours : Codable{
+    let open: [YelpBusinessSearchLocationOpen]?
+    let hoursType : String?
+    let isOpenNow : Bool?
+}
+
+struct YelpBusinessSearchLocationOpen: Codable {
     let isOvernight : Bool?
     let start : String?
     let end : String?
     let day : Int?
-    let hoursType : String?
-    let isOpenNow : Bool?
 }
 
 struct YelpBusinessSearchLocationSpecialHours : Codable{

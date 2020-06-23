@@ -127,7 +127,7 @@ private enum Router {
                 URLQueryItem(name: "latitude", value: "\(latitude)"),
                 URLQueryItem(name: "longitude", value: "\(longitude)"),
                 URLQueryItem(name: "categories", value: "\(category)"),
-                URLQueryItem(name: "limit", value: "\(40)"),
+                URLQueryItem(name: "limit", value: "\(50)"),
                 URLQueryItem(name: "sortBy", value: "best_match"),
                 URLQueryItem(name: "locale", value: "en_US")
             ]
