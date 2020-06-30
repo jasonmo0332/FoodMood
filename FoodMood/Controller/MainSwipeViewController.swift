@@ -18,11 +18,12 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     var longitude : Double?
     var category : String?
 //    let suggestionViewController = SuggestionViewController(latitude: 0, longitude: 0, category: "")
-    let suggestionViewController = SuggestionViewController()
+    
     let foodCategories = FoodCategories()
     var locationManager: CLLocationManager?
     let hapticFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-
+    var userLatitude : Double?
+    var userLongitude: Double?
     
     
     override func viewDidLoad() {
@@ -36,16 +37,12 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         createPanGestureRecognizer(targetView: mainSwipeView.cardView)
         
         //set up location manager
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.requestLocation()
-        
-        mainSwipeView.refreshButton.addTarget(self, action: #selector(refreshButtonDidPressed(sender:)), for: .touchUpInside)
-        
+        checkLocationServices()
         
         
     }
+    
+    
     
     override func loadView() {
         view = mainSwipeView
@@ -60,10 +57,10 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func refreshButtonDidPressed(sender: Any) {
+        
         foodCategories.refreshFoodCategories()
         self.mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
     }
-    
     
     //https://insights.nimblechapps.com/app-development/ios-app-development/how-to-make-tinder-like-swipe-gesture-for-ios help with tinder-like swipe
     @objc func panGestureValueChanged(_ sender: UIPanGestureRecognizer) {
@@ -102,12 +99,14 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                })
                 
                 guard let currentFoodCategory = mainSwipeView.cardView.foodCategoryLabel.text else { return }
-                
+                let suggestionViewController = SuggestionViewController()
+                suggestionViewController.userLongitude = userLongitude
+                suggestionViewController.userLatitude = userLatitude
                 suggestionViewController.category = retrieveFoodCategoryQueryEquiavlent(currentFoodCategory: currentFoodCategory)
                 suggestionViewController.categoryName = currentFoodCategory
                 
                 hapticFeedbackGenerator.impactOccurred()
-                self.navigationController?.pushViewController(self.suggestionViewController, animated: false)
+                self.navigationController?.pushViewController(suggestionViewController, animated: false)
                 
                UIView.animate(withDuration: 2, animations: {
                    self.setupSameCard()
@@ -164,36 +163,6 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        // set the value of lat and long
-        guard let currentLocation = locations.first else { return }
-        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways) {
-            suggestionViewController.longitude = currentLocation.coordinate.longitude
-            suggestionViewController.latitude = currentLocation.coordinate.latitude
-        }
-        
-
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find user's location: \(error.localizedDescription)")
-    }
-    
-//    func startActivityIndicator() {
-//        myActivityIndicator.center = view.center
-//        // In most cases this will be set to true, so the indicator hides when it stops spinning
-//        myActivityIndicator.hidesWhenStopped = true
-//
-//        // Start the activity indicator and place it onto your view
-//        myActivityIndicator.startAnimating()
-//        view.addSubview(myActivityIndicator)
-//    }
-//    
-//    func stopActivityIndicator() {
-//         myActivityIndicator.stopAnimating()
-//    }
 
 }
 
@@ -207,5 +176,66 @@ extension MainSwipeViewController:  UIViewControllerTransitioningDelegate {
     }
 }
 
+extension MainSwipeViewController {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    //        guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+            // set the value of lat and long
+            guard let currentLocation = locations.first else { return }
+            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+                userLongitude = currentLocation.coordinate.longitude
+                userLatitude = currentLocation.coordinate.latitude
+            }
+            
+
+        }
+        
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+    }
+
+    func checkLocationAuthorization() {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            break
+        case .denied:
+            // Show alert instructing them how to turn on permissions
+            break
+        case .notDetermined:
+            locationManager?.requestWhenInUseAuthorization()
+        case .restricted:
+            // Show an alert letting them know what's up
+            let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            break
+        case .authorizedAlways:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
+    func setupLocationManager() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        locationManager?.requestLocation()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAuthorization()
+        } else {
+            // Show alert letting the user know they have to turn this on.
+            let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        }
+    }
+    
+}
 
 

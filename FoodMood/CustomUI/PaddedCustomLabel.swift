@@ -40,7 +40,7 @@ class PaddedCustomLabel : UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        textColor = .black
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

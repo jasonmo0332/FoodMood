@@ -19,18 +19,21 @@ class MainSwipeView: UIView {
     */
     
     let cardView = CardView()
-    var refreshButton = CustomButton()
+//    var refreshButton = CustomButton()
     //<div>Icons made by <a href="https://creativemarket.com/Becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    
+    
+    
     var refreshButtonImage = UIImage(named: "refreshButton")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 123/255, green: 109/255, blue: 141/255, alpha: 1)
         cardView.translatesAutoresizingMaskIntoConstraints = false
-        refreshButton.translatesAutoresizingMaskIntoConstraints = false
+//        refreshButton.translatesAutoresizingMaskIntoConstraints = false
         cardView.layer.cornerRadius = 50
-        refreshButton.setImage(refreshButtonImage, for: .normal)
-        addSubview(refreshButton)
+//        refreshButton.setImage(refreshButtonImage, for: .normal)
+//        addSubview(refreshButton)
         addSubview(cardView)
         
         
@@ -50,13 +53,13 @@ class MainSwipeView: UIView {
             cardView.heightAnchor.constraint(equalToConstant: 300)
         ])
         
-        NSLayoutConstraint.activate([
-            refreshButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -170),
-            refreshButton.centerYAnchor.constraint(equalTo: centerYAnchor,constant: -300),
-            refreshButton.widthAnchor.constraint(equalToConstant: 32),
-            refreshButton.heightAnchor.constraint(equalToConstant: 32)
-  
-        ])
+//        NSLayoutConstraint.activate([
+//            refreshButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -170),
+//            refreshButton.centerYAnchor.constraint(equalTo: centerYAnchor,constant: -300),
+//            refreshButton.widthAnchor.constraint(equalToConstant: 32),
+//            refreshButton.heightAnchor.constraint(equalToConstant: 32)
+//
+//        ])
     }
 
 }

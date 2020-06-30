@@ -22,7 +22,7 @@ class SuggestionTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
 
-
+        backgroundColor = UIColor(red: 132/255, green: 153/255, blue: 177/255, alpha: 1)
         self.register(SuggestionTableViewCell.self, forCellReuseIdentifier: "cell")
         
         

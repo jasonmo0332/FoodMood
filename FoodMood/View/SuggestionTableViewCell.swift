@@ -30,6 +30,7 @@ class SuggestionTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = UIColor(red: 132/255, green: 153/255, blue: 177/255, alpha: 1)
         mainVerticalStack.translatesAutoresizingMaskIntoConstraints = false
         restaurantName.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +107,8 @@ class SuggestionTableViewCell: UITableViewCell {
             ratingImageView.widthAnchor.constraint(equalToConstant: 100 )
         ])
         NSLayoutConstraint.activate([
-            ratingLabel.leadingAnchor.constraint(equalTo: ratingImageView.trailingAnchor)
+            ratingLabel.leadingAnchor.constraint(equalTo: ratingImageView.trailingAnchor),
+            ratingLabel.topAnchor.constraint(equalTo: ratingImageView.topAnchor, constant: 10)
         ])
         
         NSLayoutConstraint.activate([

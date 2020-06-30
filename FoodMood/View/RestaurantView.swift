@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 import UIKit
 
 class RestaurantView: UIView {
@@ -27,6 +28,11 @@ class RestaurantView: UIView {
     var yelpRatingImageView = UIImageView()
     var numberOfRatingsLabel = PaddedCustomLabel()
     var isBusinessCurrentlyOpenLabel = PaddedCustomLabel()
+    var currentDayHoursLabel = CustomLabel()
+    var buttonView = UIView()
+    var mapView = MKMapView()
+    var safeArea: UILayoutGuide!
+    
     
     var photoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -41,9 +47,10 @@ class RestaurantView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        
+        safeArea = self.layoutMarginsGuide
         photoCollectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
+        buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
         restaurantName.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +64,23 @@ class RestaurantView: UIView {
         callLabel.translatesAutoresizingMaskIntoConstraints = false
         mapAddressButton.translatesAutoresizingMaskIntoConstraints = false
         isBusinessCurrentlyOpenLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentDayHoursLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(buttonView)
+        buttonView.layer.borderWidth = 2
+        buttonView.layer.borderColor = UIColor.lightGray.cgColor
+        buttonView.addSubview(callButton)
+        buttonView.addSubview(visitYelpPageButton)
+        buttonView.addSubview(mapAddressButton)
+        buttonView.addSubview(viewYelpPageLabel)
+        buttonView.addSubview(viewMapLabel)
+        buttonView.addSubview(callLabel)
+        
+        buttonView.addSubview(isBusinessCurrentlyOpenLabel)
+        
+        buttonView.addSubview(currentDayHoursLabel)
         
         setupButtons()
         setupLabels()
@@ -66,18 +89,12 @@ class RestaurantView: UIView {
         addSubview(restaurantName)
         
         
-        addSubview(callButton)
-        addSubview(visitYelpPageButton)
-        addSubview(mapAddressButton)
-        addSubview(viewYelpPageLabel)
-        addSubview(viewMapLabel)
-        addSubview(callLabel)
         addSubview(yelpRatingImageView)
         addSubview(numberOfRatingsLabel)
-        addSubview(isBusinessCurrentlyOpenLabel)
+        
         addSubview(addressLabel)
         
-        
+        addSubview(mapView)
         
         setupConstraints()
         
@@ -91,7 +108,7 @@ class RestaurantView: UIView {
         callButton.setImage(callButtonImage, for: .normal)
         visitYelpPageButton.setImage(visitYelpPageImage, for: .normal)
         mapAddressButton.setImage(mapAddressButtonImage, for: .normal)
-        addressLabel.text = "Testing Address Label"
+        addressLabel.text = "Testing Address Label "
         callLabel.text = "Call"
         callLabel.type = .subtitle
         callLabel.textAlignment = .center
@@ -124,6 +141,9 @@ class RestaurantView: UIView {
         numberOfRatingsLabel.layer.masksToBounds = false
         
         isBusinessCurrentlyOpenLabel.backgroundColor = .clear
+        currentDayHoursLabel.numberOfLines = 0
+        currentDayHoursLabel.textAlignment = .left
+        currentDayHoursLabel.textColor = .black
     }
     
     func setupImageView() {
@@ -139,23 +159,53 @@ class RestaurantView: UIView {
             restaurantName.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         NSLayoutConstraint.activate([
-            callButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -100),
-            callButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
+            buttonView.topAnchor.constraint(equalTo: photoCollectionView.bottomAnchor),
+            buttonView.leadingAnchor.constraint(equalTo: photoCollectionView.leadingAnchor),
+            buttonView.trailingAnchor.constraint(equalTo: photoCollectionView.trailingAnchor),
+            buttonView.heightAnchor.constraint(equalToConstant: 150)
+            
+            
+        ])
+        
+        NSLayoutConstraint.activate([
+            isBusinessCurrentlyOpenLabel.centerXAnchor.constraint(equalTo: buttonView.centerXAnchor, constant: -146),
+            isBusinessCurrentlyOpenLabel.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor, constant: -50),
+            isBusinessCurrentlyOpenLabel.widthAnchor.constraint(equalToConstant: 80)
+        
+        ])
+        
+        NSLayoutConstraint.activate([
+            currentDayHoursLabel.widthAnchor.constraint(equalToConstant: 300),
+            currentDayHoursLabel.leadingAnchor.constraint(equalTo: isBusinessCurrentlyOpenLabel.trailingAnchor),
+            currentDayHoursLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            currentDayHoursLabel.topAnchor.constraint(equalTo: isBusinessCurrentlyOpenLabel.topAnchor, constant: 3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: buttonView.bottomAnchor),
+            mapView.widthAnchor.constraint(equalTo: widthAnchor),
+            mapView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            
+            
+        ])
+        NSLayoutConstraint.activate([
+            callButton.centerXAnchor.constraint(equalTo: buttonView.centerXAnchor, constant: -100),
+            callButton.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor, constant: 10),
             callButton.widthAnchor.constraint(equalToConstant: 32),
             callButton.heightAnchor.constraint(equalToConstant: 32)
             
         ])
         
         NSLayoutConstraint.activate([
-            mapAddressButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            mapAddressButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
+            mapAddressButton.centerXAnchor.constraint(equalTo: buttonView.centerXAnchor, constant: 0),
+            mapAddressButton.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor, constant: 10),
             mapAddressButton.widthAnchor.constraint(equalToConstant: 32),
             mapAddressButton.heightAnchor.constraint(equalToConstant: 32)
         
         ])
         NSLayoutConstraint.activate([
-            visitYelpPageButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 100),
-            visitYelpPageButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
+            visitYelpPageButton.centerXAnchor.constraint(equalTo: buttonView.centerXAnchor, constant: 100),
+            visitYelpPageButton.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor, constant: 10),
             visitYelpPageButton.widthAnchor.constraint(equalToConstant: 32),
             visitYelpPageButton.heightAnchor.constraint(equalToConstant: 32)
         
@@ -182,9 +232,10 @@ class RestaurantView: UIView {
             photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             photoCollectionView.heightAnchor.constraint(equalToConstant: 300),
-            photoCollectionView.topAnchor.constraint(equalTo: topAnchor)
+            
         
         ])
+        photoCollectionView.topAnchor.constraint(equalTo: self.safeArea.topAnchor).isActive = true
         
         NSLayoutConstraint.activate([
             yelpRatingImageView.topAnchor.constraint(equalTo: restaurantName.bottomAnchor, constant: 10),
@@ -195,16 +246,12 @@ class RestaurantView: UIView {
         
         ])
         
-        NSLayoutConstraint.activate([
-            isBusinessCurrentlyOpenLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -10),
-            isBusinessCurrentlyOpenLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -80),
-            isBusinessCurrentlyOpenLabel.widthAnchor.constraint(equalToConstant: 300)
         
-        ])
         NSLayoutConstraint.activate([
             numberOfRatingsLabel.leadingAnchor.constraint(equalTo: yelpRatingImageView.trailingAnchor),
-            numberOfRatingsLabel.topAnchor.constraint(equalTo: yelpRatingImageView.topAnchor)
+            numberOfRatingsLabel.topAnchor.constraint(equalTo: yelpRatingImageView.topAnchor, constant: 6)
         ])
+        
         
 
     }
