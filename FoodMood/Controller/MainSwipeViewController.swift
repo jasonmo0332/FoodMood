@@ -41,9 +41,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
-    
-    
-    
+
     override func loadView() {
         view = mainSwipeView
     }
@@ -165,7 +163,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
 
 }
-
+//animations
 extension MainSwipeViewController:  UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self as? UIViewControllerAnimatedTransitioning
