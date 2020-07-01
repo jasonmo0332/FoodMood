@@ -2,4 +2,4 @@ An application to help users decide where to eat based on a food category prompt
 
 
 
-![Alt Text](https://i.imgur.com/2bIJGVF.gif)
+![Alt Text](/demo/OptimizedFoodMoodDemo.gif)
