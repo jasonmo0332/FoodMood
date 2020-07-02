@@ -7,42 +7,37 @@
 //
 
 import UIKit
+import CoreLocation
 
-class SuggestionViewController: UIViewController {
+class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
 
     let suggestionView = SuggestionView()
     var yelpPropertiesCells: [YelpBusiness]?
     var filteredYelpProperties: [YelpBusiness]?
     let networkingHandler = YelpNetworkingHandler()
     let remoteImageHelper = RemoteImageHelper()
-    var userLatitude : Double?
-    var userLongitude : Double?
+    
     var category: String?
     var categoryName: String?
     let activityIndicator = CustomActivityIndicator()
     
-
-    final let MILE_CONVERTER : Float = 0.00062137119224
+    
+    final let MILE_CONVERTER: Float = 0.00062137119224
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.suggestionView.suggestionTableView.dataSource = self
         self.suggestionView.suggestionTableView.delegate = self
         suggestionView.suggestionTableView.rowHeight = 250
-        retrievingResponse()
+        
+        CustomLocationManager.shared.manager.delegate = self
+        CustomLocationManager.shared.manager.requestLocation()
         // Do any additional setup after loading the view.
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        print("view did load \(String(describing: userLongitude)) and \(String(describing: userLatitude))")
-
-        
         guard let name = categoryName else { return }
         self.title = name
-        
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -58,13 +53,13 @@ class SuggestionViewController: UIViewController {
         view = suggestionView
     }
 
-    func retrievingResponse() {
+    func retrievingResponse(latitude: Double?, longitude: Double?) {
         activityIndicator.startActivityIndicator(view: self.suggestionView)
-        guard let latitude = userLatitude, let longitude = userLongitude, let category = category else { return }
+        guard let latitude = latitude, let longitude = longitude, let category = category else { return }
         networkingHandler.retrieveVenues(latitude: latitude, longitude: longitude, category: category) {
             [weak self] (properties, error) in
             
-            print("in handler \(String(describing: self?.userLongitude)) and \(String(describing: self?.userLatitude))")
+            
             
             guard let `self` = self else { return }
             
@@ -209,6 +204,20 @@ extension SuggestionViewController:  UIViewControllerTransitioningDelegate {
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self as? UIViewControllerAnimatedTransitioning
+    }
+}
+
+extension SuggestionViewController {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            guard let currentLocation = locations.first else { return }
+            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+                retrievingResponse(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+            }
+        }
+        
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
     }
 }
 

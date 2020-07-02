@@ -27,8 +27,7 @@ class RestaurantViewController: UIViewController {
     var counter = 0
     var buildHours : [String] = []
     var hoursDict : [Int : String] = [:]
-    var locationManager: CLLocationManager?
-    var userLocation : CLLocation?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +40,7 @@ class RestaurantViewController: UIViewController {
         restaurantView.mapView.delegate = self
         restaurantView.photoCollectionView.delegate = self
         restaurantView.photoCollectionView.dataSource = self
-        checkLocationServices()
+        
         
         retrievingBusinessDetails()
         
@@ -273,8 +272,7 @@ class RestaurantViewController: UIViewController {
 
 extension RestaurantViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Created section")
-        return yelpImages.count ?? 0
+        return yelpImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -283,14 +281,11 @@ extension RestaurantViewController : UICollectionViewDelegateFlowLayout, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
-        print("Created cell")
 
         if yelpImages.count > 0 {
             cell.imageView.image = self.yelpImages[indexPath.row]
         }
-        
-       
-        
+
         return cell
     }
 }
@@ -326,53 +321,12 @@ extension RestaurantViewController : MKMapViewDelegate {
 }
 //location manager items
 extension RestaurantViewController {
-    func setupLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.requestLocation()
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-    }
-    
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            setupLocationManager()
-            checkLocationAuthorization()
-        } else {
-            // Show alert letting the user know they have to turn this on.
-        }
-    }
-    
-    func checkLocationAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            
-
-            restaurantView.mapView.showsUserLocation = true
-            break
-        case .denied:
-            // Show alert instructing them how to turn on permissions
-            break
-        case .notDetermined:
-            print("Not determined?")
-            locationManager?.requestWhenInUseAuthorization()
-        case .restricted:
-            // Show an alert letting them know what's up
-            break
-        case .authorizedAlways:
-
-            restaurantView.mapView.showsUserLocation = true
-            break
-        @unknown default:
-            break
-        }
-    }
     
     
     
     func getDirections() {
         
-        guard let location = locationManager?.location?.coordinate else { return }
+        guard let location = CustomLocationManager.shared.coordinate else { return }
         print("See \(location)")
         let request = getDirectionsRequest(from: location)
         let directions = MKDirections(request: request)

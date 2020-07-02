@@ -24,7 +24,7 @@ struct YelpBusiness: Codable {
     let isClosed: Bool?
     let categories: [YelpCategory]
     let reviewCount: Int?
-    let name : String
+    let name : String?
     let url: String?
     let coordinates: YelpCoordinates
     let imageUrl: String?
@@ -34,8 +34,8 @@ struct YelpBusiness: Codable {
 }
 
 struct YelpCoordinates: Codable {
-    let latitude: Double
-    let longitude: Double
+    let latitude: Double?
+    let longitude: Double?
 }
 
 struct YelpCategory: Codable {
