@@ -12,22 +12,23 @@ import CoreLocation
 
 
 class RestaurantViewController: UIViewController {
+    
     var id: String?
     let restaurantView = RestaurantView()
     let networkingHandler = YelpNetworkingHandler()
     let activityIndicator = CustomActivityIndicator()
-    var yelpBusinessDetails : YelpBusinessSearchIdResponse?
-    var businessPhoneNumber : String?
-    var yelpBusinessUrl : String?
-    var addressLatitude : Double?
-    var addressLongitude : Double?
+    var yelpBusinessDetails: YelpBusinessSearchIdResponse?
+    var businessPhoneNumber: String?
+    var yelpBusinessUrl: String?
+    var addressLatitude: Double?
+    var addressLongitude: Double?
     let remoteImageHelper = RemoteImageHelper()
-    var yelpImages : [UIImage] = []
+    var yelpImages: [UIImage] = []
     var timer = Timer()
     var counter = 0
-    var buildHours : [String] = []
-    var hoursDict : [Int : String] = [:]
-    
+    var buildHours: [String] = []
+    var hoursDict: [Int : String] = [:]
+    var userCoordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +36,18 @@ class RestaurantViewController: UIViewController {
         restaurantView.visitYelpPageButton.addTarget(self, action: #selector(visitYelpPageButtonDidPressed(_:)), for: .touchUpInside)
         restaurantView.mapAddressButton.addTarget(self, action: #selector(openMapsButtonDidPressed(_:)), for: .touchUpInside)
         // Do any additional setup after loading the view.
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.addressViewDidPressed))
+        restaurantView.addressInformationView.addGestureRecognizer(gesture)
+        restaurantView.isUserInteractionEnabled = true
         self.title = "Details"
         
         restaurantView.mapView.delegate = self
+        restaurantView.mapView.showsUserLocation = true
         restaurantView.photoCollectionView.delegate = self
         restaurantView.photoCollectionView.dataSource = self
+        CustomLocationManager.shared.manager.delegate = self
+//        activityIndicator.startActivityIndicator(view: self.restaurantView)
+        userCoordinate = CustomLocationManager.shared.coordinate
         
         
         retrievingBusinessDetails()
@@ -48,7 +56,13 @@ class RestaurantViewController: UIViewController {
         
     }
     
-    
+    @objc func addressViewDidPressed(sender : UITapGestureRecognizer) {
+        print("clicked map")
+               guard let addressLongitude = addressLongitude else { return }
+               guard let addressLatitude = addressLatitude else { return }
+               guard let url = URL(string:"http://maps.apple.com/?daddr=\(addressLatitude),\(addressLongitude)") else { return }
+               UIApplication.shared.open(url)
+    }
     
     func setupTimer() {
         timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(collectionViewAutoScroll), userInfo: nil, repeats: true)
@@ -74,7 +88,7 @@ class RestaurantViewController: UIViewController {
     
     
     func retrievingBusinessDetails() {
-        activityIndicator.startActivityIndicator(view: self.restaurantView)
+        
         guard let id = id else { return }
         networkingHandler.retrieveVenue(id: id) {
             [weak self] (properties, error) in
@@ -99,7 +113,7 @@ class RestaurantViewController: UIViewController {
             DispatchQueue.main.async {
                 self.setupView()
                 self.setupTimer()
-                self.activityIndicator.stopActivityIndicator()
+//                self.activityIndicator.stopActivityIndicator()
             }
             
         }
@@ -109,8 +123,14 @@ class RestaurantViewController: UIViewController {
         guard let restaurantName = yelpBusinessDetails?.name else { return }
         restaurantView.restaurantName.text = restaurantName
         guard let yelpDisplayAddress = yelpBusinessDetails?.location?.displayAddress else { return }
+        let lastAddressValue = yelpDisplayAddress.last
         for currentDisplayAddress in yelpDisplayAddress {
-            restaurantView.addressLabel.text! += currentDisplayAddress
+            if currentDisplayAddress == lastAddressValue {
+                restaurantView.addressLabel.text! += "\(currentDisplayAddress)"
+            } else {
+                restaurantView.addressLabel.text! += "\(currentDisplayAddress), "
+            }
+            
         }
         guard let ratingValue = yelpBusinessDetails?.rating else { return }
         restaurantView.yelpRatingImageView.image = UIImage(named: setRatingImage(ratingValue: ratingValue))
@@ -129,6 +149,7 @@ class RestaurantViewController: UIViewController {
         self.yelpBusinessUrl = yelpBusinessUrl
         self.addressLatitude = addressLatitude
         self.addressLongitude = addressLongitude
+        
         getDirections()
     }
     func isBusinessOpen(isOpen: Bool) -> String {
@@ -296,9 +317,9 @@ extension RestaurantViewController : CLLocationManagerDelegate {
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == .authorizedAlways) {
                 print(currentLocation)
-                guard let addressLatitude = addressLatitude, let addressLongitude = addressLongitude else { return }
-                let pin = MKPlacemark(coordinate: CLLocation(latitude: addressLatitude, longitude: addressLongitude).coordinate)
-                restaurantView.mapView.addAnnotation(pin)
+                
+                userCoordinate = currentLocation.coordinate
+                
                 
             }
             
@@ -326,8 +347,13 @@ extension RestaurantViewController {
     
     func getDirections() {
         
-        guard let location = CustomLocationManager.shared.coordinate else { return }
+        guard let location = userCoordinate else { return }
         print("See \(location)")
+        
+        guard let addressLatitude = addressLatitude, let addressLongitude = addressLongitude else { return }
+        let pin = MKPlacemark(coordinate: CLLocation(latitude: addressLatitude, longitude: addressLongitude).coordinate)
+        restaurantView.mapView.addAnnotation(pin)
+        
         let request = getDirectionsRequest(from: location)
         let directions = MKDirections(request: request)
         
@@ -343,11 +369,21 @@ extension RestaurantViewController {
                 let heightMultipler = route.polyline.boundingMapRect.height / 4
                 //parameters is origin which is topleft of screen, need to subtract multiplier to give room and add to the max height and width to give room for the furtherst points
                 let mapRectBuffer = MKMapRect(x: route.polyline.boundingMapRect.minX - widthMultiplier, y: route.polyline.boundingMapRect.minY - heightMultipler, width: route.polyline.boundingMapRect.width + widthMultiplier*2, height: route.polyline.boundingMapRect.height + heightMultipler*2)
+                self.restaurantView.directionsEta.text = self.convertExpectedTravelTime(seconds: route.expectedTravelTime)
                 
                 self.restaurantView.mapView.setVisibleMapRect(mapRectBuffer, animated: false)
                 
             }
         }
+    }
+    
+    func convertExpectedTravelTime(seconds : Double) -> String {
+        
+        //rounded
+        let convertedToMinutes = Int(seconds / 60.0)
+        let travelTime = String(convertedToMinutes) + " min drive"
+        return travelTime
+        
     }
     
     func getDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request {

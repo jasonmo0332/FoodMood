@@ -9,20 +9,24 @@
 
 import UIKit
 class CustomActivityIndicator : UIActivityIndicatorView {
-    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     
     func startActivityIndicator(view: UIView) {
         activityIndicator.center = view.center
+        activityIndicator.color = .black
         // In most cases this will be set to true, so the indicator hides when it stops spinning
-        activityIndicator.hidesWhenStopped = true
-
+        
+        activityIndicator.alpha = 0.5
         // Start the activity indicator and place it onto your view
-        activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
     }
     
     func stopActivityIndicator() {
-         activityIndicator.stopAnimating()
+        
+        activityIndicator.stopAnimating()
+        activityIndicator.hidesWhenStopped = true
     }
     
 }

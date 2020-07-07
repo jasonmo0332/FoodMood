@@ -32,7 +32,8 @@ class RestaurantView: UIView {
     var buttonView = UIView()
     var mapView = MKMapView()
     var safeArea: UILayoutGuide!
-    
+    var addressInformationView = UIView()
+    var directionsEta = CustomLabel()
     
     var photoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -67,7 +68,8 @@ class RestaurantView: UIView {
         currentDayHoursLabel.translatesAutoresizingMaskIntoConstraints = false
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        
+        addressInformationView.translatesAutoresizingMaskIntoConstraints = false
+        directionsEta.translatesAutoresizingMaskIntoConstraints = false
         addSubview(buttonView)
         buttonView.layer.borderWidth = 2
         buttonView.layer.borderColor = UIColor.lightGray.cgColor
@@ -92,9 +94,13 @@ class RestaurantView: UIView {
         addSubview(yelpRatingImageView)
         addSubview(numberOfRatingsLabel)
         
-        addSubview(addressLabel)
+        
         
         addSubview(mapView)
+        
+        addSubview(addressInformationView)
+        addressInformationView.addSubview(directionsEta)
+        addressInformationView.addSubview(addressLabel)
         
         setupConstraints()
         
@@ -108,7 +114,7 @@ class RestaurantView: UIView {
         callButton.setImage(callButtonImage, for: .normal)
         visitYelpPageButton.setImage(visitYelpPageImage, for: .normal)
         mapAddressButton.setImage(mapAddressButtonImage, for: .normal)
-        addressLabel.text = "Testing Address Label "
+        
         callLabel.text = "Call"
         callLabel.type = .subtitle
         callLabel.textAlignment = .center
@@ -144,6 +150,15 @@ class RestaurantView: UIView {
         currentDayHoursLabel.numberOfLines = 0
         currentDayHoursLabel.textAlignment = .left
         currentDayHoursLabel.textColor = .black
+        addressLabel.type = .subtitle
+        addressLabel.font = UIFont.systemFont(ofSize: 10)
+        addressLabel.lineBreakMode = .byWordWrapping
+        addressLabel.numberOfLines = 0
+        directionsEta.type = .title
+        directionsEta.textColor = .black
+        
+        addressLabel.text = ""
+        
     }
     
     func setupImageView() {
@@ -175,7 +190,7 @@ class RestaurantView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            currentDayHoursLabel.widthAnchor.constraint(equalToConstant: 300),
+            currentDayHoursLabel.widthAnchor.constraint(equalToConstant: 200),
             currentDayHoursLabel.leadingAnchor.constraint(equalTo: isBusinessCurrentlyOpenLabel.trailingAnchor),
             currentDayHoursLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             currentDayHoursLabel.topAnchor.constraint(equalTo: isBusinessCurrentlyOpenLabel.topAnchor, constant: 3)
@@ -184,10 +199,30 @@ class RestaurantView: UIView {
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: buttonView.bottomAnchor),
             mapView.widthAnchor.constraint(equalTo: widthAnchor),
-            mapView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            
+            mapView.bottomAnchor.constraint(equalTo: addressInformationView.topAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addressInformationView.topAnchor.constraint(equalTo: mapView.bottomAnchor),
+            addressInformationView.widthAnchor.constraint(equalTo: widthAnchor),
+            addressInformationView.heightAnchor.constraint(equalToConstant: 75),
+            addressInformationView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            directionsEta.centerXAnchor.constraint(equalTo: addressInformationView.centerXAnchor, constant: -120),
+            directionsEta.centerYAnchor.constraint(equalTo: addressInformationView.centerYAnchor, constant: -20),
             
         ])
+        
+        NSLayoutConstraint.activate([
+            addressLabel.topAnchor.constraint(equalTo: directionsEta.bottomAnchor),
+            addressLabel.leadingAnchor.constraint(equalTo: directionsEta.leadingAnchor),
+            addressLabel.heightAnchor.constraint(equalToConstant: 25),
+        ])
+        
+    
+        
         NSLayoutConstraint.activate([
             callButton.centerXAnchor.constraint(equalTo: buttonView.centerXAnchor, constant: -100),
             callButton.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor, constant: 10),

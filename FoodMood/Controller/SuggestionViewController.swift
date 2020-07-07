@@ -22,26 +22,29 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
     let activityIndicator = CustomActivityIndicator()
     
     
-    final let MILE_CONVERTER: Float = 0.00062137119224
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        CustomLocationManager.shared.manager.delegate = self
+        CustomLocationManager.shared.manager.requestLocation()
         
         self.suggestionView.suggestionTableView.dataSource = self
         self.suggestionView.suggestionTableView.delegate = self
         suggestionView.suggestionTableView.rowHeight = 250
         
-        CustomLocationManager.shared.manager.delegate = self
-        CustomLocationManager.shared.manager.requestLocation()
+        
         // Do any additional setup after loading the view.
         guard let name = categoryName else { return }
         self.title = name
+        
+        retrievingResponse(latitude: CustomLocationManager.shared.latitude, longitude: CustomLocationManager.shared.longitude)
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
         if self.isMovingFromParent {
             yelpPropertiesCells?.removeAll()
             self.suggestionView.suggestionTableView.reloadData()
@@ -54,7 +57,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     func retrievingResponse(latitude: Double?, longitude: Double?) {
-        activityIndicator.startActivityIndicator(view: self.suggestionView)
+        
         guard let latitude = latitude, let longitude = longitude, let category = category else { return }
         networkingHandler.retrieveVenues(latitude: latitude, longitude: longitude, category: category) {
             [weak self] (properties, error) in
@@ -69,6 +72,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
                 
                 self.filterYelpBusiness(yelpProperties: yelpPropertiesCells)
                 
+                
                 self.suggestionView.suggestionTableView.reloadData()
                 self.activityIndicator.stopActivityIndicator()
                 guard let filteredYelpProperties = self.filteredYelpProperties else { return }
@@ -82,6 +86,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
                     self.present(alert, animated: true, completion: nil)
                     //return view controller saying no matches found near you for x category
                 }
+                
             }
             
         }
@@ -110,6 +115,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func convertMetersToMiles(meters: Float) -> String {
+        let MILE_CONVERTER: Float = 0.00062137119224
         let miles = meters * MILE_CONVERTER
         let convertedMiles = String(format: "%.2f",miles) + " mi"
         return convertedMiles
@@ -154,6 +160,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
 
 extension SuggestionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.activityIndicator.startActivityIndicator(view: self.suggestionView)
         return filteredYelpProperties?.count ?? 0 // replace with count later
     }
     
@@ -192,7 +199,7 @@ extension SuggestionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurantViewController = RestaurantViewController()
         restaurantViewController.id = filteredYelpProperties?[indexPath.row].id
-        self.navigationController?.pushViewController(restaurantViewController, animated: false)
+        self.navigationController?.pushViewController(restaurantViewController, animated: true)
     }
     
 }
@@ -209,10 +216,12 @@ extension SuggestionViewController:  UIViewControllerTransitioningDelegate {
 
 extension SuggestionViewController {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("in the delegate update location")
             guard let currentLocation = locations.first else { return }
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == .authorizedAlways) {
-                retrievingResponse(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+                print("Retrieved location")
+//                retrievingResponse(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
             }
         }
         

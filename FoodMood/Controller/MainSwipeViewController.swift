@@ -17,7 +17,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
    
     var category: String?
     
-//    let suggestionViewController = SuggestionViewController(latitude: 0, longitude: 0, category: "")
+
     
     let foodCategories = FoodCategories()
     
@@ -102,7 +102,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 suggestionViewController.categoryName = currentFoodCategory
                 
                 hapticFeedbackGenerator.impactOccurred()
-                self.navigationController?.pushViewController(suggestionViewController, animated: false)
+                self.navigationController?.pushViewController(suggestionViewController, animated: true)
                 
                UIView.animate(withDuration: 2, animations: {
                    self.setupSameCard()

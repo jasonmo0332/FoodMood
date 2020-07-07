@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        CustomLocationManager.shared.manager.delegate = self
+        
+        CustomLocationManager.shared.manager.startUpdatingLocation()
         return true
     }
 
@@ -33,5 +37,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("in the app delegate update location")
+            guard let currentLocation = locations.first else { return }
+            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+                print("Retrieved location")
+                CustomLocationManager.shared.latitude = currentLocation.coordinate.latitude
+                CustomLocationManager.shared.longitude = currentLocation.coordinate.longitude
+                CustomLocationManager.shared.coordinate = currentLocation.coordinate
+            }
+        }
+        
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+    }
 }
 
