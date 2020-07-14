@@ -19,6 +19,7 @@ class YelpNetworkingHandler {
     ///   - completionHandler: An array of `YelpBusiness` objects if it exists, or an `Error` object if something goes wrong.
     func retrieveVenues(latitude: Double, longitude: Double, category: String, completionHandler: @escaping ([YelpBusiness]?, Error?) -> Void) {
         ServiceLayer.request(router: .retrieveVenues(latitude, longitude, category)) { (result: Result<Data?, Error>) in
+            
             switch result {
             case .success(let data):
                 guard let data = data else {
@@ -36,6 +37,7 @@ class YelpNetworkingHandler {
                 }
                 
                 if let targetData = targetData {
+                    //accesses the businesses of the search response from Yelp (not businessSearch)
                     completionHandler(targetData.businesses, nil)
                 } else {
                     completionHandler(nil, nil) // TODO: fix

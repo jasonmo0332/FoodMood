@@ -45,7 +45,7 @@ class RestaurantViewController: UIViewController {
         restaurantView.mapView.showsUserLocation = true
         restaurantView.photoCollectionView.delegate = self
         restaurantView.photoCollectionView.dataSource = self
-        CustomLocationManager.shared.manager.delegate = self
+//        CustomLocationManager.shared.manager.delegate = self
 //        activityIndicator.startActivityIndicator(view: self.restaurantView)
         userCoordinate = CustomLocationManager.shared.coordinate
         
@@ -170,14 +170,37 @@ class RestaurantViewController: UIViewController {
     
     func interpretTodayHoursOfOperation(yelpOpenHours: [YelpBusinessSearchLocationOpen]?) -> String {
         
-        let todayDate = Calendar.current.component(.weekday, from: Date()) - 1
-        
+        // returns an integer from 1 - 7, with 1 being Sunday and 7 being Saturday
+        let todayDate = Calendar.current.component(.weekday, from: Date())
+//        let testDate = Calendar.current.component(.weekday, from: Date())
+//        print("print todays date \(testDate)")
+        var convertedToDateNumber : Int = 0
+        switch todayDate {
+        //Sunday
+        case 1:
+            convertedToDateNumber = 6
+        case 2:
+            convertedToDateNumber = 0
+        case 3:
+            convertedToDateNumber = 1
+        case 4:
+            convertedToDateNumber = 2
+        case 5:
+            convertedToDateNumber = 3
+        case 6:
+            convertedToDateNumber = 4
+        case 7:
+            convertedToDateNumber = 5
+        default:
+            break
+        }
+        print("Todays date in number value \(todayDate)")
         guard let yelpOpenHours = yelpOpenHours else { return "" }
         for time in yelpOpenHours {
             var currentString = ""
             guard let day = time.day, let start = time.start, let end = time.end else { return ""}
             
-            if todayDate == day {
+            if convertedToDateNumber == day {
                 
                 let keyExists = hoursDict[todayDate]
                 
@@ -311,25 +334,25 @@ extension RestaurantViewController : UICollectionViewDelegateFlowLayout, UIColle
     }
 }
 
-extension RestaurantViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            guard let currentLocation = locations.first else { return }
-            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() == .authorizedAlways) {
-                print(currentLocation)
-                
-                userCoordinate = currentLocation.coordinate
-                
-                
-            }
-            
-
-        }
-        
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            print("Failed to find user's location: \(error.localizedDescription)")
-        }
-}
+//extension RestaurantViewController : CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//            guard let currentLocation = locations.first else { return }
+//            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+//                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+//                print(currentLocation)
+//                
+//                userCoordinate = currentLocation.coordinate
+//                
+//                
+//            }
+//            
+//
+//        }
+//        
+//        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//            print("Failed to find user's location: \(error.localizedDescription)")
+//        }
+//}
 
 extension RestaurantViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

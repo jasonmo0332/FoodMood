@@ -19,6 +19,14 @@ class RestaurantView: UIView {
     var mapAddressButton = CustomButton()
     var addressLabel = CustomLabel()
     var restaurantName = PaddedCustomLabel()
+    /*
+     Call icon made by bqlqn from www.flaticon.com - https://www.flaticon.com/authors/bqlqn
+     Map icon made by bqlqn from www.flaticon.com - https://www.flaticon.com/authors/bqlqn
+     Web icon made by bqlqn from www.flaticon.com - https://www.flaticon.com/authors/bqlqn
+     */
+    
+    
+    
     var callButtonImage = UIImage(named: "phone")
     var visitYelpPageImage = UIImage(named: "internet")
     var mapAddressButtonImage = UIImage(named: "map")

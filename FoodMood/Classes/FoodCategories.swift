@@ -85,7 +85,7 @@ class FoodCategories {
         "Mediterranean",
         "Mexican",
         "Middle Eastern",
-        "Mogolian",
+        "Mongolian",
         "Moroccan",
         "Nicaraguan",
         "Noodles",
@@ -118,7 +118,7 @@ class FoodCategories {
         "Vietnamese",
         "Waffles",
         "Wraps"]
-//        foodCategories = ["Taiwanese"]
+//        foodCategories = ["Brazilian"]
     }
     func setupFoodCategoriesQuery() {
         foodCategoriesQueryDictionary["Afghan"] = "afghani"
@@ -127,7 +127,7 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Arabian"] = "arabian"
         foodCategoriesQueryDictionary["Argentine"] = "argentine"
         foodCategoriesQueryDictionary["Armenian"] = "armenian"
-        foodCategoriesQueryDictionary["Asian Fusion"] = "asian fusion"
+        foodCategoriesQueryDictionary["Asian Fusion"] = "asianfusion"
         foodCategoriesQueryDictionary["Austrian"] = "austrian"
         foodCategoriesQueryDictionary["Australian"] = "australian"
         foodCategoriesQueryDictionary["Austrian"] = "austrian"
@@ -186,7 +186,7 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Mediterranean"] = "mediterranean"
         foodCategoriesQueryDictionary["Mexican"] = "mexican"
         foodCategoriesQueryDictionary["Middle Eastern"] = "midaeastern"
-        foodCategoriesQueryDictionary["Mogolian"] = "mogolian"
+        foodCategoriesQueryDictionary["Mongolian"] = "mongolian"
         foodCategoriesQueryDictionary["Moroccan"] = "moroccan"
         foodCategoriesQueryDictionary["Nicaraguan"] = "nicaraguan"
         foodCategoriesQueryDictionary["Noodles"] = "noodles"

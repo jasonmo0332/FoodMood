@@ -27,8 +27,8 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        CustomLocationManager.shared.manager.delegate = self
-        CustomLocationManager.shared.manager.requestLocation()
+//        CustomLocationManager.shared.manager.delegate = self
+//        CustomLocationManager.shared.manager.requestLocation()
         
         self.suggestionView.suggestionTableView.dataSource = self
         self.suggestionView.suggestionTableView.delegate = self
@@ -46,7 +46,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.isMovingFromParent {
-            yelpPropertiesCells?.removeAll()
+            filteredYelpProperties?.removeAll()
             self.suggestionView.suggestionTableView.reloadData()
             print("remove cells?")
         }
@@ -214,19 +214,19 @@ extension SuggestionViewController:  UIViewControllerTransitioningDelegate {
     }
 }
 
-extension SuggestionViewController {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("in the delegate update location")
-            guard let currentLocation = locations.first else { return }
-            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() == .authorizedAlways) {
-                print("Retrieved location")
-//                retrievingResponse(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-            }
-        }
-        
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find user's location: \(error.localizedDescription)")
-    }
-}
+//extension SuggestionViewController {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print("in the delegate update location")
+//            guard let currentLocation = locations.first else { return }
+//            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+//                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+//                print("Retrieved location")
+////                retrievingResponse(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+//            }
+//        }
+//
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        print("Failed to find user's location: \(error.localizedDescription)")
+//    }
+//}
 

@@ -16,9 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let launchKeys = launchOptions?[UIApplication.LaunchOptionsKey.location]
+        if(launchKeys != nil) {
+            CustomLocationManager.shared.manager.delegate = self
+            
+            CustomLocationManager.shared.startMySignificantLocationChanges()
+            CustomLocationManager.shared.manager.allowsBackgroundLocationUpdates = true
+            CustomLocationManager.shared.manager.pausesLocationUpdatesAutomatically = false
+            print("Hello app delegate")
+        }
         CustomLocationManager.shared.manager.delegate = self
         
         CustomLocationManager.shared.manager.startUpdatingLocation()
+        CustomLocationManager.shared.manager.allowsBackgroundLocationUpdates = true
+        CustomLocationManager.shared.manager.pausesLocationUpdatesAutomatically = false
+        print("Hello app delegate")
         return true
     }
 
@@ -42,10 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 extension AppDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("in the app delegate update location")
-            guard let currentLocation = locations.first else { return }
+        guard let currentLocation = locations.last else { return }
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == .authorizedAlways) {
-                print("Retrieved location")
+                print("Retrieved location \(CustomLocationManager.shared.coordinate)")
                 CustomLocationManager.shared.latitude = currentLocation.coordinate.latitude
                 CustomLocationManager.shared.longitude = currentLocation.coordinate.longitude
                 CustomLocationManager.shared.coordinate = currentLocation.coordinate
@@ -53,7 +66,11 @@ extension AppDelegate {
         }
         
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find user's location: \(error.localizedDescription)")
+        if let error = error as? CLError, error.code == .denied {
+           // Location updates are not authorized.
+           manager.stopMonitoringSignificantLocationChanges()
+           return
+        }
     }
 }
 

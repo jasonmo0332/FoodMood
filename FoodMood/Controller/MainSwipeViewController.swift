@@ -103,7 +103,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 
                 hapticFeedbackGenerator.impactOccurred()
                 self.navigationController?.pushViewController(suggestionViewController, animated: true)
-                
+                CustomLocationManager.shared.stopMySignificantLocationChanges()
                UIView.animate(withDuration: 2, animations: {
                    self.setupSameCard()
                })
@@ -141,15 +141,15 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     func randomizeCategory() -> String {
-        if foodCategories.foodCategories.count != 0 {
-            let remainingSize = foodCategories.foodCategories.count
-            let randomIndex = randomNumberGenerator(arraySize: remainingSize)
-            let currentChoice = foodCategories.foodCategories[randomIndex] //grabs currentchoice
-            foodCategories.foodCategories.remove(at: randomIndex) //removes current choice
-            return currentChoice
+        if foodCategories.foodCategories.count == 0 {
+            foodCategories.refreshFoodCategories()
         }
-        foodCategories.refreshFoodCategories()
-        return "Empty"
+        let remainingSize = foodCategories.foodCategories.count
+        let randomIndex = randomNumberGenerator(arraySize: remainingSize)
+        let currentChoice = foodCategories.foodCategories[randomIndex] //grabs currentchoice
+        foodCategories.foodCategories.remove(at: randomIndex) //removes current choice
+        return currentChoice
+        
     }
 
     

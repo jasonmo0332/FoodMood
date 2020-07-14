@@ -20,7 +20,7 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
     let manager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestAlwaysAuthorization()
-        manager.desiredAccuracy = kCLLocationAccuracyBest
+//        manager.desiredAccuracy = kCLLocationAccuracyBest
         return manager
         
     }()
@@ -35,6 +35,17 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
         checkLocationServices()
     }
     
+    func startMySignificantLocationChanges() {
+        if !CLLocationManager.significantLocationChangeMonitoringAvailable() {
+            // The device does not support this service.
+            return
+        }
+        manager.startMonitoringSignificantLocationChanges()
+    }
+    
+    func stopMySignificantLocationChanges() {
+        manager.stopMonitoringSignificantLocationChanges()
+    }
     
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
@@ -71,7 +82,7 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            guard let currentLocation = locations.first else { return }
+            guard let currentLocation = locations.last else { return }
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == .authorizedAlways) {
                 coordinate = currentLocation.coordinate
@@ -82,7 +93,11 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
         }
         
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find user's location: \(error.localizedDescription)")
+        if let error = error as? CLError, error.code == .denied {
+           // Location updates are not authorized.
+           manager.stopMonitoringSignificantLocationChanges()
+           return
+        }
     }
 }
 
