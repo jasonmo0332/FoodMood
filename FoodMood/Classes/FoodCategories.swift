@@ -27,7 +27,6 @@ class FoodCategories {
         "Argentine",
         "Armenian",
         "Asian Fusion",
-        "Austrian",
         "Australian",
         "Austrian",
         "Baguettes",
@@ -128,7 +127,6 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Argentine"] = "argentine"
         foodCategoriesQueryDictionary["Armenian"] = "armenian"
         foodCategoriesQueryDictionary["Asian Fusion"] = "asianfusion"
-        foodCategoriesQueryDictionary["Austrian"] = "austrian"
         foodCategoriesQueryDictionary["Australian"] = "australian"
         foodCategoriesQueryDictionary["Austrian"] = "austrian"
         foodCategoriesQueryDictionary["Baguettes"] = "baguettes"
@@ -185,7 +183,7 @@ class FoodCategories {
         foodCategoriesQueryDictionary["Malaysian"] = "malaysian"
         foodCategoriesQueryDictionary["Mediterranean"] = "mediterranean"
         foodCategoriesQueryDictionary["Mexican"] = "mexican"
-        foodCategoriesQueryDictionary["Middle Eastern"] = "midaeastern"
+        foodCategoriesQueryDictionary["Middle Eastern"] = "mideastern"
         foodCategoriesQueryDictionary["Mongolian"] = "mongolian"
         foodCategoriesQueryDictionary["Moroccan"] = "moroccan"
         foodCategoriesQueryDictionary["Nicaraguan"] = "nicaraguan"

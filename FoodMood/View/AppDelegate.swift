@@ -21,16 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if(launchKeys != nil) {
             CustomLocationManager.shared.manager.delegate = self
             
-            CustomLocationManager.shared.startMySignificantLocationChanges()
-            CustomLocationManager.shared.manager.allowsBackgroundLocationUpdates = true
-            CustomLocationManager.shared.manager.pausesLocationUpdatesAutomatically = false
+//            CustomLocationManager.shared.startMySignificantLocationChanges()
+//            CustomLocationManager.shared.manager.allowsBackgroundLocationUpdates = true
+//            CustomLocationManager.shared.manager.pausesLocationUpdatesAutomatically = false
             print("Hello app delegate")
         }
         CustomLocationManager.shared.manager.delegate = self
         
         CustomLocationManager.shared.manager.startUpdatingLocation()
-        CustomLocationManager.shared.manager.allowsBackgroundLocationUpdates = true
-        CustomLocationManager.shared.manager.pausesLocationUpdatesAutomatically = false
+
         print("Hello app delegate")
         return true
     }

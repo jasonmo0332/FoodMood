@@ -14,31 +14,18 @@ import YelpAPI
 class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
     
     let mainSwipeView = MainSwipeView()
-   
     var category: String?
-    
-
-    
     let foodCategories = FoodCategories()
-    
-    
     let hapticFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         //randomize the category of food to start
         mainSwipeView.cardView.foodCategoryLabel.text = randomizeCategory()
-        
         //setup pan gesture
         createPanGestureRecognizer(targetView: mainSwipeView.cardView)
-        
-        
-        
-        
     }
 
     override func loadView() {
@@ -80,7 +67,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     
                 })
                 //new card slides back
-                UIView.animate(withDuration: 1.8, animations: {
+                UIView.animate(withDuration: 1.5, animations: {
                     self.hapticFeedbackGenerator.impactOccurred()
                     self.setupNewCard()
                 })
@@ -89,7 +76,25 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 
             }
             
-            else if (cardView.center.x > (view.frame.size.width-20)) { // Moved to right
+            else if (cardView.center.x > (view.frame.size.width-20)) {
+                if !CustomLocationManager.shared.checkLocationServices() && CLLocationManager.authorizationStatus() != .notDetermined {
+                    let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                    self.present(alert, animated: true, completion: nil)
+                    UIView.animate(withDuration: 2, animations: {
+                        self.setupSameCard()
+                    })
+                    return
+                } else if CLLocationManager.authorizationStatus() == .notDetermined {
+                    CustomLocationManager.shared.manager.requestWhenInUseAuthorization()
+                    UIView.animate(withDuration: 2, animations: {
+                        self.setupSameCard()
+                    })
+                    return
+                }
+                
+                //Moved to right
                UIView.animate(withDuration: 0.3, animations: {
                     cardView.center = CGPoint(x: cardView.center.x+200, y: cardView.center.y)
                     
@@ -104,7 +109,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 hapticFeedbackGenerator.impactOccurred()
                 self.navigationController?.pushViewController(suggestionViewController, animated: true)
                 CustomLocationManager.shared.stopMySignificantLocationChanges()
-               UIView.animate(withDuration: 2, animations: {
+                UIView.animate(withDuration: 1.5, animations: {
                    self.setupSameCard()
                })
                return

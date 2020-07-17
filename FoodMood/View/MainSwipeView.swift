@@ -28,12 +28,13 @@ class MainSwipeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 123/255, green: 109/255, blue: 141/255, alpha: 1)
+        backgroundColor = UIColor(red: 195/255, green: 172/255, blue: 206/255, alpha: 1)
         cardView.translatesAutoresizingMaskIntoConstraints = false
 //        refreshButton.translatesAutoresizingMaskIntoConstraints = false
         cardView.layer.cornerRadius = 50
 //        refreshButton.setImage(refreshButtonImage, for: .normal)
 //        addSubview(refreshButton)
+        cardView.backgroundColor = UIColor(red: 223/255, green: 217/255, blue: 226/255, alpha: 1)
         addSubview(cardView)
         
         
@@ -49,8 +50,8 @@ class MainSwipeView: UIView {
         NSLayoutConstraint.activate([
             cardView.centerXAnchor.constraint(equalTo: centerXAnchor),
             cardView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cardView.widthAnchor.constraint(equalToConstant: 200),
-            cardView.heightAnchor.constraint(equalToConstant: 300)
+            cardView.widthAnchor.constraint(equalToConstant: 250),
+            cardView.heightAnchor.constraint(equalToConstant: 350)
         ])
         
 //        NSLayoutConstraint.activate([

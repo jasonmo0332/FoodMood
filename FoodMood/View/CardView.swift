@@ -47,8 +47,9 @@ class CardView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.borderWidth = 2
-        let borderColor = UIColor(red: 89/255, green: 63/255, blue: 98/255, alpha: 1)
-        layer.borderColor = borderColor.cgColor
+//        let borderColor = UIColor(red: 89/255, green: 63/255, blue: 98/255, alpha: 1)
+        layer.borderColor = UIColor.gray.cgColor
+        
         layer.masksToBounds = true
         imageViewIcon1.translatesAutoresizingMaskIntoConstraints = false
         imageViewIcon2.translatesAutoresizingMaskIntoConstraints = false

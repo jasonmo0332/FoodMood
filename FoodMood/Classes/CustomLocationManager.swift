@@ -19,7 +19,7 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
 
     let manager: CLLocationManager = {
         let manager = CLLocationManager()
-        manager.requestAlwaysAuthorization()
+        manager.requestWhenInUseAuthorization()
 //        manager.desiredAccuracy = kCLLocationAccuracyBest
         return manager
         
@@ -47,14 +47,17 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
         manager.stopMonitoringSignificantLocationChanges()
     }
     
-    func checkLocationAuthorization() {
+    func checkLocationAuthorization() -> Bool {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
-            
-            break
+            return true
         case .denied:
-            // Show alert instructing them how to turn on permissions
-            break
+            // Show an alert letting them know what's up
+            let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            
+            return false
         case .notDetermined:
            manager.requestWhenInUseAuthorization()
         case .restricted:
@@ -62,25 +65,32 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
             let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            break
+            return false
         case .authorizedAlways:
-            
-            break
+            return true
         @unknown default:
-            break
+            return false
+        }
+        return false
+    }
+    
+    func checkLocationServices() -> Bool {
+        if CLLocationManager.locationServicesEnabled() {
+            print("In location service")
+            if checkLocationAuthorization() {
+                return true
+            } else {
+                return false
+            }
+            
+        } else {
+            // Show alert letting the user know they have to turn this on.
+            print("In here")
+            return false
         }
     }
     
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            checkLocationAuthorization()
-        } else {
-            // Show alert letting the user know they have to turn this on.
-            let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
-        }
-    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             guard let currentLocation = locations.last else { return }
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
