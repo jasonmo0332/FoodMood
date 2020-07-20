@@ -21,7 +21,7 @@ class SuggestionView: UIView {
     var suggestionTableView = SuggestionTableView()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 132/255, green: 153/255, blue: 177/255, alpha: 1)
+        backgroundColor = UIColor(red: 93/255, green: 152/255, blue: 233/255, alpha: 1)
         safeArea = self.layoutMarginsGuide
         suggestionTableView.translatesAutoresizingMaskIntoConstraints = false
         

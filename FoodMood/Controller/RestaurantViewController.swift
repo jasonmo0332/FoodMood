@@ -35,13 +35,13 @@ class RestaurantViewController: UIViewController {
         restaurantView.callButton.addTarget(self, action: #selector(callButtonDidPressed(_:)), for: .touchUpInside)
         restaurantView.visitYelpPageButton.addTarget(self, action: #selector(visitYelpPageButtonDidPressed(_:)), for: .touchUpInside)
         restaurantView.mapAddressButton.addTarget(self, action: #selector(openMapsButtonDidPressed(_:)), for: .touchUpInside)
-        restaurantView.shareButton.addTarget(self, action: #selector(shareButtonDidPressed(_:)), for: .touchUpInside)
+
         // Do any additional setup after loading the view.
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.addressViewDidPressed))
         restaurantView.addressInformationView.addGestureRecognizer(gesture)
         restaurantView.isUserInteractionEnabled = true
         self.title = "Details"
-        let shareBarButton = UIBarButtonItem(customView: restaurantView.shareButton)
+        let shareBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.action, target: self, action: #selector(shareButtonDidPressed(_:)))
         self.navigationItem.rightBarButtonItem = shareBarButton
         restaurantView.mapView.delegate = self
         restaurantView.mapView.showsUserLocation = true

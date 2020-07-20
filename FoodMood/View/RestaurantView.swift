@@ -19,16 +19,15 @@ class RestaurantView: UIView {
     var mapAddressButton = CustomButton()
     var addressLabel = CustomLabel()
     var restaurantName = PaddedCustomLabel()
-    var shareButton = CustomButton()
+    
     /*
      Call icon made by bqlqn from www.flaticon.com - https://www.flaticon.com/authors/bqlqn
      Map icon made by bqlqn from www.flaticon.com - https://www.flaticon.com/authors/bqlqn
      Web icon made by bqlqn from www.flaticon.com - https://www.flaticon.com/authors/bqlqn
-     Share icon <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
      */
     
     
-    var shareButtonImage = UIImage(named: "share")
+    
     var callButtonImage = UIImage(named: "phone")
     var visitYelpPageImage = UIImage(named: "internet")
     var mapAddressButtonImage = UIImage(named: "map")
@@ -60,8 +59,7 @@ class RestaurantView: UIView {
         backgroundColor = .white
         safeArea = self.layoutMarginsGuide
         photoCollectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        shareButton.frame = CGRect(x: 0,y: 0,width: 32,height: 32)
-        shareButton.setImage(shareButtonImage, for: .normal)
+        
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         photoCollectionView.translatesAutoresizingMaskIntoConstraints = false

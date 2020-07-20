@@ -14,6 +14,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
     let suggestionView = SuggestionView()
     var yelpPropertiesCells: [YelpBusiness]?
     var filteredYelpProperties: [YelpBusiness]?
+    var filteredAndSortedYelpProperties: [YelpBusiness]?
     let networkingHandler = YelpNetworkingHandler()
     let remoteImageHelper = RemoteImageHelper()
     
@@ -75,7 +76,8 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
                 
                 self.suggestionView.suggestionTableView.reloadData()
                 self.activityIndicator.stopActivityIndicator()
-                guard let filteredYelpProperties = self.filteredYelpProperties else { return }
+                guard var filteredYelpProperties = self.filteredYelpProperties else { return }
+                
                 if filteredYelpProperties.count < 1 {
                     guard let categoryName = self.categoryName else { return }
                     let alert = UIAlertController(title: "No Restaurants Found", message: "There are no restuarants nearby that match \(categoryName). Please choose a new category", preferredStyle: .alert)
@@ -86,6 +88,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
                     self.present(alert, animated: true, completion: nil)
                     //return view controller saying no matches found near you for x category
                 }
+                self.sortYelpProperties(yelpProperties: filteredYelpProperties)
                 
             }
             
@@ -93,9 +96,30 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    func sortYelpProperties(yelpProperties: [YelpBusiness]?) {
+        guard let yelpProperties = yelpProperties else { return }
+        //sorts values basedo on closest distance, need to unwrap optional double values
+        self.filteredAndSortedYelpProperties = yelpProperties.sorted(by: {
+           if let value1 = $0.distance {
+               if let value2 = $1.distance {
+                   return value1 < value2
+               } else {
+                   return false
+               }
+           } else {
+                  if let value2 = $1.distance {
+                      // there is no v1 - treat v2 as < v1
+                      return true
+                  } else {
+                      // both are nil
+                      return true
+                  }
+           }
+       })
+    }
+    
     func filterYelpBusiness(yelpProperties : [YelpBusiness]?) {
         guard let yelpProperties = yelpProperties else { return }
-        
         self.filteredYelpProperties = yelpProperties.filter {
             $0.imageUrl != nil && $0.name !=  nil && $0.reviewCount != nil && $0.rating != nil && $0.price != nil && $0.categories[0].title != nil && $0.location.address1 != nil && $0.distance != nil
         }
@@ -167,17 +191,17 @@ extension SuggestionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SuggestionTableViewCell
-        guard let imageUrl = filteredYelpProperties?[indexPath.row].imageUrl else { return cell }
+        guard let imageUrl = filteredAndSortedYelpProperties?[indexPath.row].imageUrl else { return cell }
         remoteImageHelper.retrieveImage(urlString: imageUrl) {
             image in cell.photoImageView.image = image
         }
-        guard let restaurantName = filteredYelpProperties?[indexPath.row].name,
-            let ratingLabel = filteredYelpProperties?[indexPath.row].reviewCount,
-            let ratingImageView = filteredYelpProperties?[indexPath.row].rating,
-            let priceRange = filteredYelpProperties?[indexPath.row].price,
-            let foodType = filteredYelpProperties?[indexPath.row].categories[0].title,
-            let streetAddress = filteredYelpProperties?[indexPath.row].location.address1,
-            let distance = filteredYelpProperties?[indexPath.row].distance else { return cell }
+        guard let restaurantName = filteredAndSortedYelpProperties?[indexPath.row].name,
+            let ratingLabel = filteredAndSortedYelpProperties?[indexPath.row].reviewCount,
+            let ratingImageView = filteredAndSortedYelpProperties?[indexPath.row].rating,
+            let priceRange = filteredAndSortedYelpProperties?[indexPath.row].price,
+            let foodType = filteredAndSortedYelpProperties?[indexPath.row].categories[0].title,
+            let streetAddress = filteredAndSortedYelpProperties?[indexPath.row].location.address1,
+            let distance = filteredAndSortedYelpProperties?[indexPath.row].distance else { return cell }
         
         cell.restaurantName.text = ("\(indexPath.row + 1). ") + restaurantName
         cell.ratingLabel.text = convertReviewCountIntToString(intValue: ratingLabel)
@@ -198,7 +222,7 @@ extension SuggestionViewController: UITableViewDataSource {
 extension SuggestionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurantViewController = RestaurantViewController()
-        restaurantViewController.id = filteredYelpProperties?[indexPath.row].id
+        restaurantViewController.id = filteredAndSortedYelpProperties?[indexPath.row].id
         self.navigationController?.pushViewController(restaurantViewController, animated: true)
     }
     

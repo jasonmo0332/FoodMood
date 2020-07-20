@@ -49,8 +49,9 @@ class CardView: UIView {
         layer.borderWidth = 2
 //        let borderColor = UIColor(red: 89/255, green: 63/255, blue: 98/255, alpha: 1)
         layer.borderColor = UIColor.gray.cgColor
-        
+        layer.cornerRadius = 50
         layer.masksToBounds = true
+        backgroundColor = UIColor(red: 93/255, green: 152/255, blue: 233/255, alpha: 1)
         imageViewIcon1.translatesAutoresizingMaskIntoConstraints = false
         imageViewIcon2.translatesAutoresizingMaskIntoConstraints = false
         imageViewIcon3.translatesAutoresizingMaskIntoConstraints = false
