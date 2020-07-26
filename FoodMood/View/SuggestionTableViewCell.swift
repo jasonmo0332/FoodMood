@@ -14,19 +14,19 @@ class SuggestionTableViewCell: UITableViewCell {
     var photoImageView = UIImageView()
     var ratingHorizontalStack = UIStackView()
     var addressHorizontalStack = UIStackView()
-    var restaurantName = PaddedCustomLabel()
+    var restaurantName = CustomLabel()
     var ratingImageView = UIImageView()
 
-    var ratingLabel = PaddedCustomLabel()
+    var ratingLabel = CustomLabel()
     var generalInfoHorizontalStack = UIStackView()
-    var generalInfoSpacer1 = PaddedCustomLabel()
-    var generalInfoSpacer2 = PaddedCustomLabel()
-    var location = PaddedCustomLabel()
-    var priceRange = PaddedCustomLabel()
-    var foodType = PaddedCustomLabel()
+    var generalInfoSpacer1 = CustomLabel()
+    var generalInfoSpacer2 = CustomLabel()
+    var location = CustomLabel()
+    var priceRange = CustomLabel()
+    var foodType = CustomLabel()
     
-    var streetAddress = PaddedCustomLabel()
-    var distanceLabel = PaddedCustomLabel()
+    var streetAddress = CustomLabel()
+    var distanceLabel = CustomLabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,13 +36,18 @@ class SuggestionTableViewCell: UITableViewCell {
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         streetAddress.translatesAutoresizingMaskIntoConstraints = false
         ratingHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
+        generalInfoHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
         generalInfoSpacer1.translatesAutoresizingMaskIntoConstraints = false
         generalInfoSpacer2.translatesAutoresizingMaskIntoConstraints = false
+        addressHorizontalStack.translatesAutoresizingMaskIntoConstraints = false
         distanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        photoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         
         mainVerticalStack.axis = .vertical
-        
+        mainVerticalStack.alignment = .leading
+        mainVerticalStack.spacing = 5
+        addSubview(photoImageView)
         addSubview(mainVerticalStack)
         restaurantName.type = .title
         restaurantName.textAlignment = .left
@@ -51,8 +56,10 @@ class SuggestionTableViewCell: UITableViewCell {
         photoImageView.clipsToBounds = true
         ratingLabel.textAlignment = .left
         ratingLabel.sizeToFit()
-        mainVerticalStack.addArrangedSubview(photoImageView)
+        
+        
         mainVerticalStack.addArrangedSubview(restaurantName)
+        
         mainVerticalStack.addArrangedSubview(ratingHorizontalStack)
         ratingHorizontalStack.axis = .horizontal
         ratingImageView.contentMode = .scaleAspectFit
@@ -60,12 +67,14 @@ class SuggestionTableViewCell: UITableViewCell {
         
         ratingHorizontalStack.addArrangedSubview(ratingImageView)
         ratingHorizontalStack.addArrangedSubview(ratingLabel)
+        ratingHorizontalStack.spacing = 8
         generalInfoHorizontalStack.axis = .horizontal
         generalInfoSpacer1.text = "•"
         
         mainVerticalStack.addArrangedSubview(generalInfoHorizontalStack)
         
         addressHorizontalStack.axis = .horizontal
+        addressHorizontalStack.spacing = 8
         mainVerticalStack.addArrangedSubview(addressHorizontalStack)
         addressHorizontalStack.addArrangedSubview(streetAddress)
         generalInfoSpacer2.text = "•"
@@ -74,7 +83,7 @@ class SuggestionTableViewCell: UITableViewCell {
         generalInfoHorizontalStack.addArrangedSubview(priceRange)
         generalInfoHorizontalStack.addArrangedSubview(generalInfoSpacer1)
         generalInfoHorizontalStack.addArrangedSubview(foodType)
-
+        generalInfoHorizontalStack.spacing = 8
         
         setupConstraints()
     }
@@ -95,39 +104,36 @@ class SuggestionTableViewCell: UITableViewCell {
     }
     
     func setupConstraints() {
+        
         NSLayoutConstraint.activate([
-            mainVerticalStack.topAnchor.constraint(equalTo: topAnchor),
-            mainVerticalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoImageView.topAnchor.constraint(equalTo: topAnchor),
+            photoImageView.widthAnchor.constraint(equalTo: widthAnchor),
+            photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoImageView.heightAnchor.constraint(equalToConstant: 150)
+        
+        ])
+        NSLayoutConstraint.activate([
+            mainVerticalStack.topAnchor.constraint(equalTo: photoImageView.bottomAnchor),
+            mainVerticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             mainVerticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainVerticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
+        
+        
         NSLayoutConstraint.activate([
-            ratingImageView.leadingAnchor.constraint(equalTo: restaurantName.leadingAnchor, constant: 10),
-            ratingImageView.widthAnchor.constraint(equalToConstant: 100 )
-        ])
-        NSLayoutConstraint.activate([
-            ratingLabel.leadingAnchor.constraint(equalTo: ratingImageView.trailingAnchor),
-            ratingLabel.topAnchor.constraint(equalTo: ratingImageView.topAnchor, constant: 10)
+            
+            ratingImageView.widthAnchor.constraint(equalToConstant: 100)
+            
         ])
         
         NSLayoutConstraint.activate([
-            priceRange.leadingAnchor.constraint(equalTo: restaurantName.leadingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            generalInfoSpacer1.leadingAnchor.constraint(equalTo: priceRange.trailingAnchor )
-        ])
-        NSLayoutConstraint.activate([
-           foodType.leadingAnchor.constraint(equalTo: generalInfoSpacer1.trailingAnchor )
-        ])
-        
-        NSLayoutConstraint.activate([
-           generalInfoSpacer2.leadingAnchor.constraint(equalTo: streetAddress.trailingAnchor )
+            
+            
+            
+            
         ])
 
-        NSLayoutConstraint.activate([
-           distanceLabel.leadingAnchor.constraint(equalTo: generalInfoSpacer2.trailingAnchor )
-        ])
         
         
         

@@ -117,7 +117,7 @@ class FoodCategories {
         "Vietnamese",
         "Waffles",
         "Wraps"]
-//        foodCategories = ["Brazilian"]
+//        foodCategories = ["Honduran"]
     }
     func setupFoodCategoriesQuery() {
         foodCategoriesQueryDictionary["Afghan"] = "afghani"

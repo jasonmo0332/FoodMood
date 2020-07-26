@@ -37,10 +37,13 @@ class SuggestionView: UIView {
     }
     
     func setupConstraints() {
-        suggestionTableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        suggestionTableView.topAnchor.constraint(equalTo: self.safeArea.topAnchor).isActive = true
-        suggestionTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        suggestionTableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            suggestionTableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            suggestionTableView.topAnchor.constraint(equalTo: self.safeArea.topAnchor),
+            suggestionTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            suggestionTableView.rightAnchor.constraint(equalTo: self.rightAnchor),
+        ])
+        
     }
 }
 

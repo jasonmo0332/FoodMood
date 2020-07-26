@@ -57,7 +57,7 @@ extension AppDelegate {
         guard let currentLocation = locations.last else { return }
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == .authorizedAlways) {
-                print("Retrieved location \(CustomLocationManager.shared.coordinate)")
+//                print("Retrieved location \(CustomLocationManager.shared.coordinate)")
                 CustomLocationManager.shared.latitude = currentLocation.coordinate.latitude
                 CustomLocationManager.shared.longitude = currentLocation.coordinate.longitude
                 CustomLocationManager.shared.coordinate = currentLocation.coordinate

@@ -67,7 +67,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     
                 })
                 //new card slides back
-                UIView.animate(withDuration: 1.5, animations: {
+                UIView.animate(withDuration: 1.0, animations: {
                     self.hapticFeedbackGenerator.impactOccurred()
                     self.setupNewCard()
                 })
@@ -82,13 +82,13 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                     
                     alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
                     self.present(alert, animated: true, completion: nil)
-                    UIView.animate(withDuration: 2, animations: {
+                    UIView.animate(withDuration: 1.0, animations: {
                         self.setupSameCard()
                     })
                     return
                 } else if CLLocationManager.authorizationStatus() == .notDetermined {
                     CustomLocationManager.shared.manager.requestWhenInUseAuthorization()
-                    UIView.animate(withDuration: 2, animations: {
+                    UIView.animate(withDuration: 1.0, animations: {
                         self.setupSameCard()
                     })
                     return
@@ -109,7 +109,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                 hapticFeedbackGenerator.impactOccurred()
                 self.navigationController?.pushViewController(suggestionViewController, animated: true)
                 CustomLocationManager.shared.stopMySignificantLocationChanges()
-                UIView.animate(withDuration: 1.5, animations: {
+                UIView.animate(withDuration: 1.0, animations: {
                    self.setupSameCard()
                })
                return

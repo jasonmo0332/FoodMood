@@ -163,10 +163,10 @@ class RestaurantViewController: UIViewController {
     }
     func isBusinessOpen(isOpen: Bool) -> String {
         if isOpen {
-            restaurantView.isBusinessCurrentlyOpenLabel.textColor = .green
+            restaurantView.isBusinessCurrentlyOpenLabel.textColor = UIColor.init(red: 0, green: 102/255, blue: 0, alpha: 1)
             return "Open"
         }
-        restaurantView.isBusinessCurrentlyOpenLabel.textColor = .red
+        restaurantView.isBusinessCurrentlyOpenLabel.textColor = UIColor.init(red: 173/255, green: 0, blue: 0, alpha: 1)
         return "Closed"
     }
     
@@ -343,25 +343,6 @@ extension RestaurantViewController : UICollectionViewDelegateFlowLayout, UIColle
     }
 }
 
-//extension RestaurantViewController : CLLocationManagerDelegate {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//            guard let currentLocation = locations.first else { return }
-//            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-//                CLLocationManager.authorizationStatus() == .authorizedAlways) {
-//                print(currentLocation)
-//                
-//                userCoordinate = currentLocation.coordinate
-//                
-//                
-//            }
-//            
-//
-//        }
-//        
-//        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//            print("Failed to find user's location: \(error.localizedDescription)")
-//        }
-//}
 
 extension RestaurantViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

@@ -98,7 +98,7 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
                 coordinate = currentLocation.coordinate
                 longitude = currentLocation.coordinate.longitude
                 latitude = currentLocation.coordinate.latitude
-                print("\(longitude) longitude \(latitude) latitude")
+                
             }
         }
         

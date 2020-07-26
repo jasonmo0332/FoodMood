@@ -76,7 +76,7 @@ class SuggestionViewController: UIViewController, CLLocationManagerDelegate {
                 
                 self.suggestionView.suggestionTableView.reloadData()
                 self.activityIndicator.stopActivityIndicator()
-                guard var filteredYelpProperties = self.filteredYelpProperties else { return }
+                guard let filteredYelpProperties = self.filteredYelpProperties else { return }
                 
                 if filteredYelpProperties.count < 1 {
                     guard let categoryName = self.categoryName else { return }
@@ -207,7 +207,6 @@ extension SuggestionViewController: UITableViewDataSource {
         cell.ratingLabel.text = convertReviewCountIntToString(intValue: ratingLabel)
         cell.ratingImageView.image = UIImage(named: setRatingImage(ratingValue: ratingImageView))
         cell.priceRange.text = priceRange
-        
         cell.foodType.text = foodType
         cell.streetAddress.text = streetAddress
         cell.distanceLabel.text = convertMetersToMiles(meters: Float(distance))
@@ -238,19 +237,5 @@ extension SuggestionViewController:  UIViewControllerTransitioningDelegate {
     }
 }
 
-//extension SuggestionViewController {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        print("in the delegate update location")
-//            guard let currentLocation = locations.first else { return }
-//            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-//                CLLocationManager.authorizationStatus() == .authorizedAlways) {
-//                print("Retrieved location")
-////                retrievingResponse(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-//            }
-//        }
-//
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        print("Failed to find user's location: \(error.localizedDescription)")
-//    }
-//}
+
 
