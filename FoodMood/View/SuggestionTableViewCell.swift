@@ -127,14 +127,6 @@ class SuggestionTableViewCell: UITableViewCell {
             
         ])
         
-        NSLayoutConstraint.activate([
-            
-            
-            
-            
-        ])
-
-        
         
         
     }

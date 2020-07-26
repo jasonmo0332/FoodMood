@@ -104,7 +104,7 @@ class FoodCategories {
         "Soul Food",
         "Soup",
         "Sri Lankan",
-        "SteakHouses",
+        "Steakhouses",
         "Sushi Bars",
         "Syrian",
         "Taiwanese",
@@ -117,12 +117,12 @@ class FoodCategories {
         "Vietnamese",
         "Waffles",
         "Wraps"]
-//        foodCategories = ["Honduran"]
+//        foodCategories = ["American"]
     }
     func setupFoodCategoriesQuery() {
         foodCategoriesQueryDictionary["Afghan"] = "afghani"
         foodCategoriesQueryDictionary["African"] = "african"
-        foodCategoriesQueryDictionary["American"] = "american"
+        foodCategoriesQueryDictionary["American"] = "newamerican"
         foodCategoriesQueryDictionary["Arabian"] = "arabian"
         foodCategoriesQueryDictionary["Argentine"] = "argentine"
         foodCategoriesQueryDictionary["Armenian"] = "armenian"
