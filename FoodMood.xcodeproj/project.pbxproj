@@ -45,7 +45,7 @@
 		0D2408CA2490755E00244D47 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0D3659AA2499A385003BB772 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		0D3659AE24AADA33003BB772 /* CustomLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLocationManager.swift; sourceTree = "<group>"; };
-		0DAEF737247D1C2C00DD6380 /* FoodMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DAEF737247D1C2C00DD6380 /* FoodMoods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMoods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAEF73A247D1C2C00DD6380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAEF73C247D1C2C00DD6380 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0DAEF743247D1C3100DD6380 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		0DAEF738247D1C2C00DD6380 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0DAEF737247D1C2C00DD6380 /* FoodMood.app */,
+				0DAEF737247D1C2C00DD6380 /* FoodMoods.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -223,7 +223,7 @@
 			);
 			name = FoodMood;
 			productName = FoodMood;
-			productReference = 0DAEF737247D1C2C00DD6380 /* FoodMood.app */;
+			productReference = 0DAEF737247D1C2C00DD6380 /* FoodMoods.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -486,8 +486,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jmofoodmood.FoodMood;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jmofoodmoods.FoodMoods;
+				PRODUCT_NAME = FoodMoods;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -507,8 +507,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jmofoodmood.FoodMood;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jmofoodmoods.FoodMoods;
+				PRODUCT_NAME = FoodMoods;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

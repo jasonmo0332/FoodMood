@@ -49,13 +49,13 @@
       "size" : "60x60"
     },
     {
-      "filename" : "FoodMoodNotificationIcon.png",
+      "filename" : "FoodMoodiPadNotificationIcon.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "FoodMoodNotificationIcon@2x-1.png",
+      "filename" : "FoodMoodiPadNotificationIcon@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
