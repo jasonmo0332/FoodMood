@@ -14,10 +14,42 @@
             filePath = "FoodMood/Classes/CustomLocationManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9E0743BD-42A1-4078-A29A-0A4A58AF4028 - 33da6f4838755bb5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FoodMoods.CustomLocationManager.locationManager(_: __C.CLLocationManager, didUpdateLocations: Swift.Array&lt;__C.CLLocation&gt;) -&gt; ()"
+                  moduleName = "FoodMoods"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jasonmo/FoodMood/FoodMood/Classes/CustomLocationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "564">
+               </Location>
+               <Location
+                  uuid = "9E0743BD-42A1-4078-A29A-0A4A58AF4028 - 33da6f4838755a54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FoodMoods.CustomLocationManager.locationManager(_: __C.CLLocationManager, didUpdateLocations: Swift.Array&lt;__C.CLLocation&gt;) -&gt; ()"
+                  moduleName = "FoodMoods"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jasonmo/FoodMood/FoodMood/Classes/CustomLocationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "612">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

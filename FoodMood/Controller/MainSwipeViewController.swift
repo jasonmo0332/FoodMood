@@ -77,7 +77,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
             }
             
             else if (cardView.center.x > (view.frame.size.width-20)) {
-                if !CustomLocationManager.shared.checkLocationServices() && CLLocationManager.authorizationStatus() != .notDetermined {
+                if  CustomLocationManager.shared.manager.authorizationStatus == .denied || CustomLocationManager.shared.manager.authorizationStatus == .restricted {
                     let alert = UIAlertController(title: "Location Services Off", message: "Please turn on Location Services to begin finding restaurants near you.", preferredStyle: .alert)
                     
                     alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
@@ -86,7 +86,7 @@ class MainSwipeViewController: UIViewController, CLLocationManagerDelegate {
                         self.setupSameCard()
                     })
                     return
-                } else if CLLocationManager.authorizationStatus() == .notDetermined {
+                } else if CustomLocationManager.shared.manager.authorizationStatus == .notDetermined {
                     CustomLocationManager.shared.manager.requestWhenInUseAuthorization()
                     UIView.animate(withDuration: 1.0, animations: {
                         self.setupSameCard()
