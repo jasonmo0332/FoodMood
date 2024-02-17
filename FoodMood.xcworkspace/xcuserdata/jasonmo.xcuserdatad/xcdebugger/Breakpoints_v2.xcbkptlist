@@ -49,6 +49,21 @@
                   endingLineNumber = "83"
                   offsetFromSymbolStart = "612">
                </Location>
+               <Location
+                  uuid = "9E0743BD-42A1-4078-A29A-0A4A58AF4028 - eef11535000f0d54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FoodMoods.CustomLocationManager.checkLocationServices() -&gt; Swift.Bool"
+                  moduleName = "FoodMoods"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jasonmo/FoodMood/FoodMood/Classes/CustomLocationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "312">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
