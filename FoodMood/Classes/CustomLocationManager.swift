@@ -20,7 +20,6 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
     let manager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.requestWhenInUseAuthorization()
-//        manager.desiredAccuracy = kCLLocationAccuracyBest
         return manager
         
     }()
@@ -32,7 +31,6 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         manager.delegate = self
-        checkLocationServices()
     }
     
     func startMySignificantLocationChanges() {
@@ -48,7 +46,7 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func checkLocationAuthorization() -> Bool {
-        switch CLLocationManager.authorizationStatus() {
+        switch manager.authorizationStatus {
         case .authorizedWhenInUse:
             return true
         case .denied:
@@ -74,27 +72,10 @@ class CustomLocationManager: NSObject, CLLocationManagerDelegate {
         return false
     }
     
-    func checkLocationServices() -> Bool {
-        if CLLocationManager.locationServicesEnabled() {
-            print("In location service")
-            if checkLocationAuthorization() {
-                return true
-            } else {
-                return false
-            }
-            
-        } else {
-            // Show alert letting the user know they have to turn this on.
-            print("In here")
-            return false
-        }
-    }
-    
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             guard let currentLocation = locations.last else { return }
-            if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            if(manager.authorizationStatus == .authorizedWhenInUse ||
+                manager.authorizationStatus == .authorizedAlways) {
                 coordinate = currentLocation.coordinate
                 longitude = currentLocation.coordinate.longitude
                 latitude = currentLocation.coordinate.latitude
